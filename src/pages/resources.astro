@@ -1,5 +1,0 @@
----
-import BaseLayout from '../layouts/BaseLayout.astro'; import { getCollection } from 'astro:content';
-const pubs=(await getCollection('publications')).sort((a,b)=>b.data.date.localeCompare(a.data.date));
----
-<BaseLayout title="Resources | Sakshyam Research Institute"><section class="page-hero"><div class="container"><div class="eyebrow">Resources</div><h1>Publications and knowledge products.</h1><p>Reports, policy briefs, working papers, datasets, and other outputs can be managed through the CMS.</p></div></section><section class="section"><div class="container list">{pubs.map(p=><article class="list-item"><div><span class="badge">{p.data.type} · {p.data.date}</span><h3>{p.data.title}</h3><p>{p.data.description}</p>{p.data.file && <a class="arrow" href={p.data.file}>Download →</a>}</div></article>)}</div></section></BaseLayout>
