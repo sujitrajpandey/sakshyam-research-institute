@@ -1,0 +1,510 @@
+media:
+  - name: images
+    label: Images
+    input: public/images
+    output: /images
+    categories: [image]
+    rename: safe
+  - name: documents
+    label: Documents
+    input: public/files
+    output: /files
+    categories: [document]
+    rename: safe
+
+content:
+  - name: site
+    label: Site settings
+    type: file
+    path: content/site.yml
+    format: yaml
+    operations:
+      delete: false
+    fields:
+      - name: site_title
+        label: Site title
+        type: string
+        required: true
+      - name: short_name
+        label: Short name
+        type: string
+        required: true
+      - name: logo
+        label: Logo
+        type: image
+        options:
+          media: images
+          path: .
+      - name: symbol
+        label: Brand symbol
+        type: image
+        options:
+          media: images
+          path: .
+      - name: footer_logo
+        label: Footer logo
+        type: image
+        options:
+          media: images
+          path: .
+      - name: favicon
+        label: Browser favicon
+        type: image
+        options:
+          media: images
+          path: .
+      - name: logo_width
+        label: Header logo width (px)
+        type: number
+        options:
+          min: 80
+          max: 320
+      - name: colors
+        label: Site-wide color palette
+        type: object
+        fields:
+          - name: primary
+            label: Primary / institutional color
+            type: string
+            required: true
+            pattern: "^#[0-9A-Fa-f]{6}$"
+            description: "6-digit HEX color, e.g. #36454F"
+          - name: primary_dark
+            label: Dark primary / footer color
+            type: string
+            required: true
+            pattern: "^#[0-9A-Fa-f]{6}$"
+          - name: accent
+            label: Accent / teal color
+            type: string
+            required: true
+            pattern: "^#[0-9A-Fa-f]{6}$"
+          - name: accent_light
+            label: Light accent color
+            type: string
+            required: true
+            pattern: "^#[0-9A-Fa-f]{6}$"
+          - name: surface
+            label: Pale accent background
+            type: string
+            required: true
+            pattern: "^#[0-9A-Fa-f]{6}$"
+          - name: background
+            label: Soft page background
+            type: string
+            required: true
+            pattern: "^#[0-9A-Fa-f]{6}$"
+          - name: text
+            label: Main text color
+            type: string
+            required: true
+            pattern: "^#[0-9A-Fa-f]{6}$"
+          - name: muted
+            label: Secondary text color
+            type: string
+            required: true
+            pattern: "^#[0-9A-Fa-f]{6}$"
+          - name: border
+            label: Border color
+            type: string
+            required: true
+            pattern: "^#[0-9A-Fa-f]{6}$"
+          - name: light_text
+            label: Text on dark backgrounds
+            type: string
+            required: true
+            pattern: "^#[0-9A-Fa-f]{6}$"
+      - name: tagline
+        label: Tagline
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: email
+        label: Email
+        type: string
+      - name: phone_primary
+        label: Primary phone
+        type: string
+      - name: phone_secondary
+        label: Secondary phone
+        type: string
+      - name: address
+        label: Address
+        type: string
+      - name: website
+        label: Website
+        type: string
+      - name: linkedin
+        label: LinkedIn URL
+        type: string
+      - name: facebook
+        label: Facebook URL
+        type: string
+
+  - name: homepage
+    label: Homepage
+    type: file
+    path: content/homepage.yml
+    format: yaml
+    operations:
+      delete: false
+    fields:
+      - name: hero_kicker
+        label: Hero kicker
+        type: string
+      - name: hero_title
+        label: Hero title
+        type: string
+      - name: hero_text
+        label: Hero text
+        type: text
+      - name: hero_image
+        label: Hero image
+        type: image
+        options:
+          media: images
+          path: .
+      - name: hero_primary_label
+        label: Primary button label
+        type: string
+      - name: hero_primary_url
+        label: Primary button URL
+        type: string
+      - name: hero_secondary_label
+        label: Secondary button label
+        type: string
+      - name: hero_secondary_url
+        label: Secondary button URL
+        type: string
+      - name: hero_art_title
+        label: Hero side title
+        type: string
+      - name: hero_art_text
+        label: Hero side text
+        type: text
+      - name: intro_kicker
+        label: Introduction kicker
+        type: string
+      - name: intro_title
+        label: Introduction title
+        type: string
+      - name: intro_text
+        label: Introduction text
+        type: text
+      - name: features
+        label: Homepage feature cards
+        type: object
+        list:
+          min: 1
+          max: 6
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: tag
+            label: Tag
+            type: string
+          - name: title
+            label: Title
+            type: string
+          - name: text
+            label: Text
+            type: text
+          - name: link_label
+            label: Link label
+            type: string
+          - name: link_url
+            label: Link URL
+            type: string
+      - name: current_research_kicker
+        label: Research kicker
+        type: string
+      - name: current_research_title
+        label: Research section title
+        type: string
+      - name: current_research_text
+        label: Research section text
+        type: text
+      - name: values
+        label: Values / principles
+        type: object
+        list:
+          min: 1
+          max: 6
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: title
+            label: Title
+            type: string
+          - name: text
+            label: Text
+            type: text
+      - name: cta_kicker
+        label: CTA kicker
+        type: string
+      - name: cta_title
+        label: CTA title
+        type: string
+      - name: cta_text
+        label: CTA text
+        type: text
+      - name: cta_label
+        label: CTA button
+        type: string
+      - name: cta_url
+        label: CTA URL
+        type: string
+
+  - name: people
+    label: People
+    type: collection
+    path: content/people
+    filename: "{primary}.md"
+    view:
+      primary: name
+      sort: order
+      order: asc
+    fields:
+      - name: name
+        label: Name
+        type: string
+        required: true
+      - name: role
+        label: Role / title
+        type: string
+        required: true
+      - name: photo
+        label: Photo
+        type: image
+        required: true
+        options:
+          media: images
+          path: team
+      - name: order
+        label: Display order
+        type: number
+      - name: bio
+        label: Biography
+        type: text
+        required: true
+
+  - name: projects
+    label: Projects
+    type: collection
+    path: content/projects
+    filename: "{primary}.md"
+    view:
+      primary: title
+      sort: order
+      order: asc
+    fields:
+      - name: title
+        label: Project title
+        type: string
+        required: true
+      - name: category
+        label: Category
+        type: string
+        required: true
+      - name: status
+        label: Status
+        type: select
+        required: true
+        options:
+          values: [Ongoing, Completed, Planned, Research theme]
+      - name: featured
+        label: Feature on homepage
+        type: boolean
+      - name: image
+        label: Project image
+        type: image
+        options:
+          media: images
+          path: projects
+      - name: summary
+        label: Summary
+        type: text
+        required: true
+      - name: order
+        label: Display order
+        type: number
+      - name: body
+        label: Full project description
+        type: rich-text
+        options:
+          media: images
+          path: projects
+
+  - name: insights
+    label: Insights
+    type: collection
+    path: content/insights
+    filename: "{primary}.md"
+    view:
+      primary: title
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: type
+        label: Content type
+        type: select
+        required: true
+        options:
+          values: [Research note, Policy brief, Blog, Commentary, News]
+      - name: date
+        label: Publication date
+        type: date
+        required: true
+      - name: featured
+        label: Featured
+        type: boolean
+      - name: image
+        label: Cover image
+        type: image
+        options:
+          media: images
+          path: insights
+      - name: summary
+        label: Summary
+        type: text
+      - name: author
+        label: Author
+        type: string
+        required: true
+      - name: body
+        label: Article
+        type: rich-text
+        options:
+          media: images
+          path: insights
+
+  - name: publications
+    label: Publications
+    type: collection
+    path: content/publications
+    filename: "{primary}.md"
+    view:
+      primary: title
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: type
+        label: Type
+        type: string
+        required: true
+      - name: date
+        label: Date
+        type: date
+        required: true
+      - name: file
+        label: PDF / download
+        type: file
+        options:
+          media: documents
+          path: publications
+          categories: [document]
+      - name: description
+        label: Description
+        type: text
+      - name: body
+        label: Notes
+        type: rich-text
+        options:
+          media: images
+
+  - name: researchAreas
+    label: Research areas
+    type: collection
+    path: content/research-areas
+    filename: "{primary}.md"
+    view:
+      primary: title
+      sort: order
+      order: asc
+    fields:
+      - name: title
+        label: Area title
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: text
+        required: true
+      - name: order
+        label: Display order
+        type: number
+
+  - name: services
+    label: Services
+    type: collection
+    path: content/services
+    filename: "{primary}.md"
+    view:
+      primary: title
+      sort: order
+      order: asc
+    fields:
+      - name: title
+        label: Service title
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: text
+        required: true
+      - name: order
+        label: Display order
+        type: number
+
+  - name: pages
+    label: Site pages
+    type: collection
+    path: content/pages
+    filename: "{primary}.md"
+    view:
+      primary: title
+    fields:
+      - name: title
+        label: Page title
+        type: string
+        required: true
+      - name: hero_title
+        label: Hero title
+        type: string
+        required: true
+      - name: description
+        label: Page description
+        type: text
+        required: true
+      - name: slug
+        label: URL slug
+        type: string
+        required: true
+        readonly: true
+      - name: body
+        label: Page content
+        type: rich-text
+        options:
+          media: images
+          path: pages
+
+settings:
+  content:
+    merge: true
+  commit:
+    templates:
+      create: "content(create): {path}"
+      update: "content(update): {path}"
+      delete: "content(delete): {path}"
+      rename: "content(rename): {oldPath} -> {newPath}"
