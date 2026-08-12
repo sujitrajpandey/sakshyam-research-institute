@@ -1,0 +1,44 @@
+hero_kicker: Research Institute · Nepal
+hero_title: Research for better decisions.
+hero_text: Sakshyam Research Institute is a nonprofit research organization and think tank specializing in academic and applied research. We generate evidence to help public institutions design better policies and private organizations develop better strategies.
+hero_image: ""
+hero_primary_label: Explore our research
+hero_primary_url: /research
+hero_secondary_label: Work with us
+hero_secondary_url: /contact
+hero_art_title: Evidence · Implementation · Inclusion
+hero_art_text: Our policy research asks not only what is theoretically best, but what has the best chance of being implemented in the local context—and how implementation can include historically marginalized stakeholders.
+intro_kicker: What we do
+intro_title: Evidence grounded in context.
+intro_text: We work closely with clients to understand their requirements and design tailored research and analysis grounded in data, institutional realities, resources, capabilities, and context.
+features:
+  - tag: 01 · Research
+    title: Academic & applied research
+    text: Rigorous research on important economic, social, institutional, entrepreneurial, and scientific questions.
+    link_label: Our research →
+    link_url: /research
+  - tag: 02 · Policy
+    title: Evidence-based policy
+    text: Research and analysis that help public institutions understand problems, assess choices, and develop implementable policy solutions.
+    link_label: Policy work →
+    link_url: /services
+  - tag: 03 · Strategy
+    title: Evidence for organizations
+    text: Research that helps private companies and other organizations make informed strategic and operational decisions.
+    link_label: Our services →
+    link_url: /services
+current_research_kicker: Current research
+current_research_title: Questions that matter.
+current_research_text: Our current portfolio includes research on microfinance policy and the psychology and mental wellbeing of entrepreneurs.
+values:
+  - title: Evidence
+    text: Rigorous research is the foundation of our work.
+  - title: Implementation
+    text: Solutions are assessed against local capacity and context.
+  - title: Inclusion
+    text: Implementation should include diverse and marginalized stakeholders.
+cta_kicker: Collaborate
+cta_title: Have a question that needs evidence?
+cta_text: We work with public institutions, private organizations, development partners, researchers, and other stakeholders.
+cta_label: Start a conversation
+cta_url: /contact

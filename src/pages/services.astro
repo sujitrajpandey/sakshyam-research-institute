@@ -1,0 +1,5 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'; import { getCollection, render } from 'astro:content';
+const services=(await getCollection('services')).sort((a,b)=>a.data.order-b.data.order); const page=(await getCollection('pages')).find(p=>p.data.slug==='services'); const Content = page ? (await render(page)).Content : null;
+---
+<BaseLayout title="Services | Sakshyam Research Institute"><section class="page-hero"><div class="container"><div class="eyebrow">Services</div><h1>{page?.data.hero_title}</h1><p>{page?.data.description}</p></div></section><section class="section"><div class="container cards">{services.map(s=><article class="card"><div class="tag">Service</div><h3>{s.data.title}</h3><p>{s.data.description}</p></article>)}</div>{page && <section class="section alt"><div class="container prose">{Content && <Content />}</div></section>}</BaseLayout>
