@@ -44,7 +44,7 @@ const site = defineCollection({
 const homepage = defineCollection({
   loader: glob({ pattern: 'homepage.yml', base: './content' }),
   schema: z.object({
-    hero_kicker: z.string(), hero_title: z.string(), hero_text: z.string(), hero_image: z.string(),
+    hero_kicker: z.string(), hero_title: z.string(), hero_text: z.string(), hero_image: z.string().optional().default(''),
     hero_primary_label: z.string(), hero_primary_url: z.string(), hero_secondary_label: z.string(), hero_secondary_url: z.string(),
     hero_art_title: z.string(), hero_art_text: z.string(), intro_kicker: z.string(), intro_title: z.string(), intro_text: z.string(),
     features: z.array(z.object({tag:z.string(),title:z.string(),text:z.string(),link_label:z.string(),link_url:z.string()})),
