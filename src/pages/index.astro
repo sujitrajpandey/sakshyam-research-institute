@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getEntry, getCollection } from 'astro:content';
+const home = (await getEntry('homepage','homepage')).data;
+const projects = (await getCollection('projects')).filter(p=>p.data.featured).sort((a,b)=>a.data.order-b.data.order).slice(0,2);
+---
+<BaseLayout title="Sakshyam Research Institute | Evidence, Implementation, Inclusion">
+<section class="hero"><div class="container hero-grid"><div><div class="eyebrow">{home.hero_kicker}</div><h1>{home.hero_title}</h1><p class="lead">{home.hero_text}</p><div class="actions"><a class="btn btn-primary" href={home.hero_primary_url}>{home.hero_primary_label}</a><a class="btn btn-outline" href={home.hero_secondary_url}>{home.hero_secondary_label}</a></div></div><div class="hero-art" style={home.hero_image ? `background-image:linear-gradient(145deg,var(--accent),rgba(255,255,255,.04)),url('${home.hero_image}')` : undefined}><div class="big">SRI</div><h3>{home.hero_art_title}</h3><p>{home.hero_art_text}</p></div></div></section>
+<section class="section"><div class="container"><div class="section-head"><div><div class="eyebrow">{home.intro_kicker}</div><h2>{home.intro_title}</h2></div><p>{home.intro_text}</p></div><div class="cards">{home.features.map(f=><article class="card"><div class="tag">{f.tag}</div><h3>{f.title}</h3><p>{f.text}</p><a class="arrow" href={f.link_url}>{f.link_label}</a></article>)}</div></div></section>
+<section class="section alt"><div class="container"><div class="section-head"><div><div class="eyebrow">{home.current_research_kicker}</div><h2>{home.current_research_title}</h2></div><p>{home.current_research_text}</p></div><div class="feature-grid">{projects.map(p=><article class="feature"><div class="eyebrow">{p.data.category}</div><h3>{p.data.title}</h3><p>{p.data.summary}</p><a class="arrow" href={`/projects/${p.id}`}>Read about the project →</a></article>)}</div></div></section>
+<section class="section"><div class="container"><div class="stat-grid">{home.values.map(v=><div class="stat"><strong>{v.title}</strong><span>{v.text}</span></div>)}</div></div></section>
+<section class="cta"><div class="container cta-grid"><div><div class="eyebrow">{home.cta_kicker}</div><h2>{home.cta_title}</h2><p>{home.cta_text}</p></div><a class="btn btn-primary" href={home.cta_url}>{home.cta_label}</a></div></section>
+</BaseLayout>

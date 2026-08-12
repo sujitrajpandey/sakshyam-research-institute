@@ -1,0 +1,6 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'; import { getCollection, render } from 'astro:content';
+export async function getStaticPaths(){const pages=await getCollection('pages'); return pages.filter(p=>['about','contact'].includes(p.data.slug)).map(p=>({params:{slug:p.data.slug},props:{page:p}}));}
+const {page}=Astro.props; const {Content}=await render(page);
+---
+<BaseLayout title={`${page.data.title} | Sakshyam Research Institute`} description={page.data.description}><section class="page-hero"><div class="container"><div class="eyebrow">{page.data.title}</div><h1>{page.data.hero_title}</h1><p>{page.data.description}</p></div></section><section class="section"><div class="container prose"><Content /></div></section></BaseLayout>
