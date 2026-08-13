@@ -1,5 +1,0 @@
----
-import BaseLayout from '../layouts/BaseLayout.astro'; import { getCollection } from 'astro:content';
-const projects=(await getCollection('projects')).sort((a,b)=>a.data.order-b.data.order);
----
-<BaseLayout title="Projects | Sakshyam Research Institute"><section class="page-hero"><div class="container"><div class="eyebrow">Projects</div><h1>Research in practice.</h1><p>Selected areas of work and project themes. Add, edit, publish, or archive projects through the CMS.</p></div></section><section class="section"><div class="container list">{projects.map(p=><article class="list-item">{p.data.image && <img class="list-thumb" src={p.data.image} alt=""/>}<div><span class="badge">{p.data.category} · {p.data.status}</span><h3>{p.data.title}</h3><p>{p.data.summary}</p><a class="arrow" href={`/projects/${p.id}`}>View project →</a></div></article>)}</div></section></BaseLayout>

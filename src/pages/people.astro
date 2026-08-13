@@ -1,5 +1,0 @@
----
-import BaseLayout from '../layouts/BaseLayout.astro'; import { getCollection } from 'astro:content';
-const people=(await getCollection('people')).sort((a,b)=>a.data.order-b.data.order);
----
-<BaseLayout title="People | Sakshyam Research Institute"><section class="page-hero"><div class="container"><div class="eyebrow">People</div><h1>Researchers, practitioners, collaborators.</h1><p>Our team brings together expertise spanning entrepreneurship, management, finance, clinical and psychological research, operations, ecology, conservation, and policy.</p></div></section><section class="section"><div class="container people">{people.map(p=><article class="person"><img class="person-photo" src={p.data.photo} alt={p.data.name}><div class="person-body"><small>{p.data.role}</small><h3>{p.data.name}</h3><p>{p.data.bio}</p></div></article>)}</div></section></BaseLayout>

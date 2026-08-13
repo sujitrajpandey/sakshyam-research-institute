@@ -1,5 +1,0 @@
----
-import BaseLayout from '../layouts/BaseLayout.astro'; import { getCollection } from 'astro:content';
-const items=(await getCollection('insights')).sort((a,b)=>b.data.date.localeCompare(a.data.date));
----
-<BaseLayout title="Insights | Sakshyam Research Institute"><section class="page-hero"><div class="container"><div class="eyebrow">Insights</div><h1>Research translated into useful ideas.</h1></div></section><section class="section"><div class="container cards">{items.map(p=><article class="card">{p.data.image && <img class="card-image" src={p.data.image} alt=""/>}<div class="tag">{p.data.type}</div><h3>{p.data.title}</h3><p>{p.data.summary}</p><small>{p.data.date} · {p.data.author}</small><br/><a class="arrow" href={`/insights/${p.id}`}>Read more →</a></article>)}</div></section></BaseLayout>
