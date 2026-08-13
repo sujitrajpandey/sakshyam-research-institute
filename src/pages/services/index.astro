@@ -1,6 +1,0 @@
----
-import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
-const services=(await getCollection('services')).sort((a,b)=>(a.data.order??99)-(b.data.order??99));
----
-<Layout title="Services"><section class="page-hero"><div class="container"><div class="eyebrow">Services</div><h1>Research built for decisions.</h1><p>From research design and evaluation to policy and organizational strategy, we help clients turn difficult questions into actionable knowledge.</p></div></section><section class="section"><div class="container"><div class="service-list">{services.map(s=><article class="service"><div class="service-number">{s.data.number || '—'}</div><div><h2>{s.data.title}</h2><p>{s.data.summary}</p>{s.data.capabilities?.length && <ul>{s.data.capabilities.map(c=><li>{c}</li>)}</ul>}</div></article>)}</div></div></section></Layout>
