@@ -1,7 +1,0 @@
----
-import Layout from '../../layouts/Layout.astro';
-import { getCollection, render } from 'astro:content';
-export async function getStaticPaths(){const insights=await getCollection('insights');return insights.map(i=>({params:{id:i.id},props:{i}}));}
-const {i}=Astro.props; const {Content}=await render(i);
----
-<Layout title={i.data.title}><section class="page-hero"><div class="container"><div class="eyebrow">{i.data.type} · {i.data.date.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}</div><h1>{i.data.title}</h1><p>{i.data.excerpt}</p></div></section><section class="detail"><div class="prose"><Content /></div>{i.data.pdf && <p style="margin-top:35px"><a class="btn primary" href={i.data.pdf}>Download PDF →</a></p>}</section></Layout>

@@ -1,7 +1,0 @@
----
-import Layout from '../../layouts/Layout.astro';
-import { getCollection, render } from 'astro:content';
-export async function getStaticPaths(){const people=await getCollection('people');return people.map(p=>({params:{id:p.id},props:{p}}));}
-const {p}=Astro.props; const {Content}=await render(p);
----
-<Layout title={p.data.name}><section class="page-hero"><div class="container"><div class="eyebrow">{p.data.category}</div><h1>{p.data.name}</h1><p>{p.data.position}</p></div></section><section class="detail"><div style="display:grid;grid-template-columns:320px 1fr;gap:60px;align-items:start"><div>{p.data.photo ? <img class="person-photo" src={p.data.photo} alt={p.data.name}/> : <div class="person-photo"></div>}</div><div><div class="prose"><Content /></div>{p.data.expertise?.length && <><h3>Areas of expertise</h3><p>{p.data.expertise.join(' · ')}</p></>}{p.data.linkedin && <a class="btn" href={p.data.linkedin}>LinkedIn →</a>}</div></div></section></Layout>
