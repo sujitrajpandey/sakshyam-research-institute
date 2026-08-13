@@ -1,0 +1,38 @@
+---
+import '../styles/global.css';
+import '../styles/home-reference.css';
+import { site } from '../data/site';
+const { title = site.name, description = site.description } = Astro.props;
+---
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>{title} — {site.shortName}</title>
+  <meta name="description" content={description} />
+  <link rel="icon" href="/media/sakshyam-logo.png" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="/" aria-label="Sakshyam Research Institute home"><img class="nav-logo" src="/media/sakshyam-logo.png" alt="Sakshyam Research Institute" /></a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="/about">About Us</a><a href="/people">People</a><a href="/services">Services</a><a href="/projects">Projects</a><a href="/insights">Insights</a>
+        <a class="btn primary nav-cta" href="/about#contact">Work with us</a>
+      </nav>
+      <button class="mobile-toggle" aria-label="Open navigation" onclick="document.querySelector('.nav-links').classList.toggle('mobile-open')">☰</button>
+    </div>
+  </header>
+  <main><slot /></main>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div><img class="footer-logo" src="/media/sakshyam-logo.png" alt="Sakshyam Research Institute" /><p style="max-width:440px;color:#c8d5d9;margin-top:22px">Independent research connecting rigorous evidence with implementation and inclusive impact.</p></div>
+        <div><h4>Explore</h4><p><a href="/about">About Us</a></p><p><a href="/people">People</a></p><p><a href="/services">Services</a></p><p><a href="/projects">Projects</a></p><p><a href="/insights">Insights</a></p></div>
+        <div><h4>Connect</h4><p><a href={`mailto:${site.email}`}>{site.email}</a></p><p><a href={site.linkedin}>LinkedIn</a></p><p>Nepal</p></div>
+      </div>
+      <div class="footer-bottom"><span>© {new Date().getFullYear()} Sakshyam Research Institute</span><span>Evidence · Implementation · Inclusion</span></div>
+    </div>
+  </footer>
+</body>
+</html>

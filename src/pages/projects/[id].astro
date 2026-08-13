@@ -1,0 +1,7 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+export async function getStaticPaths(){const projects=await getCollection('projects');return projects.map(p=>({params:{id:p.id},props:{p}}));}
+const {p}=Astro.props; const {Content}=await render(p);
+---
+<Layout title={p.data.title}><section class="page-hero"><div class="container"><div class="eyebrow">{p.data.status} {p.data.year ? `· ${p.data.year}`:''}</div><h1>{p.data.title}</h1><p>{p.data.summary}</p></div></section><section class="detail"><div class="prose"><Content /></div>{p.data.client && <p><strong>Partner:</strong> {p.data.client}</p>}{p.data.location && <p><strong>Geographic focus:</strong> {p.data.location}</p>}</section></Layout>
