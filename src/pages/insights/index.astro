@@ -1,6 +1,0 @@
----
-import Layout from '../../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
-const insights=(await getCollection('insights')).sort((a,b)=>b.data.date.valueOf()-a.data.date.valueOf());
----
-<Layout title="Insights"><section class="page-hero"><div class="container"><div class="eyebrow">Insights</div><h1>Research, explained.</h1><p>Research notes, policy briefs, articles and other knowledge products from the Sakshyam team.</p></div></section><section class="section"><div class="container"><div class="filter"><button class="active">All</button><button>Research Notes</button><button>Policy Briefs</button><button>Articles</button><button>Reports</button></div><div class="grid insight-grid">{insights.map(i=><a class="insight" href={`/insights/${i.id}`}><span class="pill">{i.data.type}</span><h3>{i.data.title}</h3><p>{i.data.excerpt}</p><small>{i.data.date.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</small></a>)}</div></div></section></Layout>
