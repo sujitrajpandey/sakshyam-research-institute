@@ -1,0 +1,7 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+const people = (await getCollection('people')).filter(p=>p.data.active).sort((a,b)=>(a.data.order??99)-(b.data.order??99));
+const groups=['Researchers','Management','Advisors'];
+---
+<Layout title="People"><section class="page-hero"><div class="container"><div class="eyebrow">People</div><h1>The people behind the work.</h1><p>A multidisciplinary team of researchers, managers and advisors bringing different perspectives to complex questions.</p></div></section>{groups.map(group=><section class="section"><div class="container"><div class="section-head"><div><div class="eyebrow">{group}</div><h2>{group === 'Researchers' ? 'Research & evidence.' : group === 'Management' ? 'Making the work happen.' : 'Experience around the table.'}</h2></div></div><div class="grid people-grid">{people.filter(p=>p.data.category===group).map(p=><article class="person"><a href={`/people/${p.id}`}>{p.data.photo ? <img class="person-photo" src={p.data.photo} alt={p.data.name}/> : <div class="person-photo"></div>}</a><h3>{p.data.name}</h3><div class="role">{p.data.position || group}</div><p>{p.data.shortBio}</p></article>)}</div></div></section>)}</Layout>
