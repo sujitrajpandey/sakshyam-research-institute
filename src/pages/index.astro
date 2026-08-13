@@ -1,0 +1,138 @@
+---
+import { getEntry, getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import EventCard from '../components/EventCard.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import InsightCard from '../components/InsightCard.astro';
+
+const homeEntry = await getEntry('home', 'index');
+const home = homeEntry!.data;
+
+const allEvents = await getCollection('events');
+const upcomingEvents = allEvents
+  .filter((e) => e.data.type === 'upcoming')
+  .sort((a, b) => a.data.order - b.data.order);
+const pastEvents = allEvents
+  .filter((e) => e.data.type === 'past')
+  .sort((a, b) => a.data.order - b.data.order);
+const orderedEvents = [...upcomingEvents, ...pastEvents].slice(0, 4);
+
+const allProjects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order).slice(0, 3);
+const allInsights = (await getCollection('insights')).sort((a, b) => a.data.order - b.data.order).slice(0, 3);
+---
+
+<Layout title="Home">
+  <!-- Hero -->
+  <section class="wrap pt-14 pb-20 md:pt-20 md:pb-28">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        {home.hero.eyebrow && <p class="eyebrow mb-5">{home.hero.eyebrow}</p>}
+        <h1 class="h1 mb-6">{home.hero.heading}</h1>
+        <p class="lede mb-9 max-w-lg">{home.hero.subheading}</p>
+        <div class="flex flex-wrap gap-4">
+          <a href={home.hero.primary_button_url} class="btn btn-primary">{home.hero.primary_button_label}</a>
+          <a href={home.hero.secondary_button_url} class="btn btn-outline">{home.hero.secondary_button_label}</a>
+        </div>
+      </div>
+      <div>
+        <img src={home.hero.image} alt="" class="w-full h-auto" />
+      </div>
+    </div>
+  </section>
+
+  <!-- What we do -->
+  <section class="section-soft py-20 md:py-28">
+    <div class="wrap">
+      <div class="max-w-2xl mb-14">
+        <p class="eyebrow mb-4">{home.what_we_do.eyebrow}</p>
+        <h2 class="h2 mb-5">{home.what_we_do.heading}</h2>
+        <p class="lede">{home.what_we_do.description}</p>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-8">
+        {
+          home.what_we_do.pillars.map((pillar) => (
+            <div class="card p-7 bg-white">
+              <span class="font-heading text-3xl block mb-4" style="color: var(--color-teal-mid);">
+                {pillar.number}
+              </span>
+              <h3 class="h4 mb-2">{pillar.title}</h3>
+              <p class="prose-body text-[0.95rem]">{pillar.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Events -->
+  <section class="py-20 md:py-28">
+    <div class="wrap">
+      <div class="max-w-2xl mb-14">
+        <p class="eyebrow mb-4">{home.events_section.eyebrow}</p>
+        <h2 class="h2 mb-5">{home.events_section.heading}</h2>
+        <p class="lede">{home.events_section.description}</p>
+      </div>
+      {
+        orderedEvents.length > 0 ? (
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {orderedEvents.map((event) => <EventCard event={event.data} />)}
+          </div>
+        ) : (
+          <p class="prose-body">More events will be announced soon.</p>
+        )
+      }
+    </div>
+  </section>
+
+  <!-- Selected projects -->
+  <section class="section-soft py-20 md:py-28">
+    <div class="wrap">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+        <div class="max-w-2xl">
+          <p class="eyebrow mb-4">{home.projects_section.eyebrow}</p>
+          <h2 class="h2 mb-5">{home.projects_section.heading}</h2>
+          <p class="lede">{home.projects_section.description}</p>
+        </div>
+        <a href="/projects" class="btn btn-outline bg-white shrink-0 w-fit">
+          {home.projects_section.button_label} →
+        </a>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {allProjects.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest insights -->
+  <section class="py-20 md:py-28">
+    <div class="wrap">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+        <div class="max-w-2xl">
+          <p class="eyebrow mb-4">{home.insights_section.eyebrow}</p>
+          <h2 class="h2 mb-5">{home.insights_section.heading}</h2>
+          <p class="lede">{home.insights_section.description}</p>
+        </div>
+        <a href="/insights" class="btn btn-outline shrink-0 w-fit">
+          {home.insights_section.button_label} →
+        </a>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {allInsights.map((insight) => <InsightCard insight={insight} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 md:py-24">
+    <div class="wrap">
+      <div class="rounded-3xl px-8 py-16 md:px-16 md:py-20 text-center" style="background-color: var(--color-ink);">
+        <p class="eyebrow mb-5" style="color: var(--color-teal-light);">{home.cta.eyebrow}</p>
+        <h2 class="h2 mb-6 text-white">{home.cta.heading}</h2>
+        <p class="lede mb-9 max-w-xl mx-auto text-white/70">{home.cta.description}</p>
+        <a href={home.cta.button_url} class="btn" style="background-color: var(--color-teal); color: white;">
+          {home.cta.button_label} →
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

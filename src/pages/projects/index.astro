@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Layout title="Projects" description="Selected projects and research assignments by Sakshyam Research Institute.">
+  <section class="wrap pt-14 pb-16 md:pt-20 md:pb-20">
+    <p class="eyebrow mb-5">Projects</p>
+    <h1 class="h1 mb-6 max-w-3xl">Work that travels from question to evidence.</h1>
+    <p class="lede max-w-2xl">
+      Explore selected research, evaluation and policy assignments across entrepreneurship, finance, institutions
+      and inclusive growth.
+    </p>
+  </section>
+
+  <section class="pb-24">
+    <div class="wrap">
+      {
+        projects.length > 0 ? (
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {projects.map((project) => <ProjectCard project={project} />)}
+          </div>
+        ) : (
+          <p class="prose-body">Projects will be added soon.</p>
+        )
+      }
+    </div>
+  </section>
+</Layout>
