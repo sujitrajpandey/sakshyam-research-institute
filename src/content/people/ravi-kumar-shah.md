@@ -1,13 +1,1 @@
----
-name: "Ravi Kumar Shah"
-role: "Operations Manager"
-category: "management"
-photo: "/images/people/ravi-kumar-shah.svg"
-short_bio: "Supports research operations, coordination and organizational delivery."
-expertise:
-  - "Operations"
-  - "Coordination"
-linkedin_url: ""
-order: 2
----
-Ravi Kumar Shah supports research operations, coordination and organizational delivery at Sakshyam Research Institute. This profile is starter content migrated from the preliminary site — replace it with the approved biography from Pages CMS.
+Sujit is a researcher, educator and management practitioner with over eight years of experience in managing, conducting and communicating strategy and policy research in an international setting and nearly three years of relationship management experience from financial services industry in Nepal. He completed his PhD in Entrepreneurship and Human Capital from the Department of Strategy and Management at NHH Norwegian School of Economics. His research is motivated by his desire to understand important social and economic issues that affect enterprises, markets and society. He has worked on policy development for various ministries, parliamentarians, the Planning Commission as well as development partners. Sujit serves as Executive Director at Sakshyam.
