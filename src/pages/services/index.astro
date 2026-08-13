@@ -1,0 +1,11 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+const page = (await getCollection('pages')).find(p => p.data.pageType === 'services');
+const services = (await getCollection('services')).sort((a,b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+const renderedServices = await Promise.all(services.map(async service => ({ service, Content: (await render(service)).Content })));
+---
+<Layout title={page?.data.title ?? 'Services'} description={page?.data.metaDescription}>
+  <section class="page-hero"><div class="container"><div class="eyebrow">{page?.data.eyebrow}</div><h1>{page?.data.heroTitle}</h1><p>{page?.data.heroText}</p></div></section>
+  <section class="section"><div class="container"><div class="service-list">{renderedServices.map(({service, Content}) => <article class="service"><div class="service-number">{service.data.number || '—'}</div><div><h2>{service.data.title}</h2><p>{service.data.summary}</p>{service.data.capabilities?.length ? <ul>{service.data.capabilities.map(c => <li>{c}</li>)}</ul> : null}<div class="prose service-body"><Content /></div></div></article>)}</div></div></section>
+</Layout>

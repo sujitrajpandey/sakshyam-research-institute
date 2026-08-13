@@ -1,0 +1,11 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+const page = (await getCollection('pages')).find(p => p.data.pageType === 'people');
+const people = (await getCollection('people')).filter(p => p.data.active).sort((a,b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+const groups = page?.data.pageGroups ?? [];
+---
+<Layout title={page?.data.title ?? 'People'} description={page?.data.metaDescription}>
+  <section class="page-hero"><div class="container"><div class="eyebrow">{page?.data.eyebrow}</div><h1>{page?.data.heroTitle}</h1><p>{page?.data.heroText}</p></div></section>
+  {groups.map(group => <section class="section"><div class="container"><div class="section-head"><div><div class="eyebrow">{group.eyebrow}</div><h2>{group.title}</h2></div><p>{group.text}</p></div><div class="grid people-grid">{people.filter(p => p.data.category === group.category).map(p => <article class="person"><a href={`/people/${p.id}`}>{p.data.photo ? <img class="person-photo" src={p.data.photo} alt={p.data.name} /> : <div class="person-photo" />}</a><h3>{p.data.name}</h3><div class="role">{p.data.position || group.category}</div><p>{p.data.shortBio}</p></article>)}</div></div></section>)}
+</Layout>

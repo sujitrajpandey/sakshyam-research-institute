@@ -1,0 +1,52 @@
+---
+import '../styles/global.css';
+import '../styles/home-reference.css';
+import { site } from '../data/site';
+const { title = site.name, description = site.description } = Astro.props;
+---
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>{title} — {site.shortName}</title>
+  <meta name="description" content={description} />
+  <link rel="icon" href="/media/sakshyam-logo.png" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="/" aria-label={`${site.name} home`}><img class="nav-logo" src="/media/sakshyam-logo.png" alt={site.name} /></a>
+      <button class="mobile-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="primary-navigation">☰</button>
+      <nav class="nav-links" id="primary-navigation" aria-label="Primary navigation">
+        <a href="/about">{site.navAbout}</a><a href="/people">{site.navPeople}</a><a href="/services">{site.navServices}</a><a href="/projects">{site.navProjects}</a><a href="/insights">{site.navInsights}</a>
+        <a class="btn primary nav-cta" href={site.navCtaUrl}>{site.navCtaLabel}</a>
+      </nav>
+    </div>
+  </header>
+  <main><slot /></main>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div><img class="footer-logo" src="/media/sakshyam-logo.png" alt={site.name} /><p style="max-width:440px;color:rgba(154,208,214,.85);margin-top:22px">{site.description}</p></div>
+        <div><h4>{site.footerExplore}</h4><p><a href="/about">{site.navAbout}</a></p><p><a href="/people">{site.navPeople}</a></p><p><a href="/services">{site.navServices}</a></p><p><a href="/projects">{site.navProjects}</a></p><p><a href="/insights">{site.navInsights}</a></p></div>
+        <div><h4>{site.footerConnect}</h4><p><a href={`mailto:${site.email}`}>{site.email}</a></p><p><a href={site.linkedin}>LinkedIn</a></p><p>{site.location}</p></div>
+      </div>
+      <div class="footer-bottom"><span>© {new Date().getFullYear()} {site.name}</span><span>{site.tagline}</span></div>
+    </div>
+  </footer>
+</body>
+</html>
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.mobile-toggle');
+  const nav = document.querySelector<HTMLElement>('#primary-navigation');
+  toggle?.addEventListener('click', () => {
+    const open = nav?.classList.toggle('mobile-open') ?? false;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+  });
+  nav?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+    nav.classList.remove('mobile-open');
+    toggle?.setAttribute('aria-expanded', 'false');
+    toggle?.setAttribute('aria-label', 'Open navigation');
+  }));
+</script>
