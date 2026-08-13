@@ -1,0 +1,319 @@
+media:
+  - name: images
+    label: Images
+    input: public/media
+    output: /media
+    categories: [image]
+    rename: safe
+  - name: documents
+    label: Documents
+    input: public/docs
+    output: /docs
+    categories: [document]
+
+content:
+  - name: people
+    label: People
+    type: collection
+    path: src/content/people
+    view:
+      primary: name
+      fields: [name, category, position]
+    fields:
+      - name: name
+        label: Name
+        type: string
+        required: true
+      - name: category
+        label: Category
+        type: select
+        options:
+          values: [Researchers, Management, Advisors]
+        required: true
+      - name: position
+        label: Position
+        type: string
+      - name: photo
+        label: Photo
+        type: image
+      - name: shortBio
+        label: Short bio
+        type: text
+      - name: bio
+        label: Full biography
+        type: rich-text
+      - name: expertise
+        label: Areas of expertise
+        type: string
+        list: true
+      - name: education
+        label: Education
+        type: string
+        list: true
+      - name: linkedin
+        label: LinkedIn
+        type: string
+      - name: email
+        label: Email
+        type: string
+      - name: order
+        label: Display order
+        type: number
+      - name: active
+        label: Active
+        type: boolean
+
+  - name: events
+    label: Events
+    type: collection
+    path: src/content/events
+    view:
+      primary: title
+      fields: [title, date, location]
+    fields:
+      - name: title
+        label: Event title
+        type: string
+        required: true
+      - name: date
+        label: Date
+        type: date
+        required: true
+      - name: endDate
+        label: End date
+        type: date
+      - name: time
+        label: Time
+        type: string
+      - name: location
+        label: Location
+        type: string
+      - name: image
+        label: Image
+        type: image
+      - name: summary
+        label: Brief description
+        type: text
+      - name: body
+        label: Event details
+        type: rich-text
+      - name: rsvpEnabled
+        label: Enable RSVP
+        type: boolean
+      - name: rsvpUrl
+        label: RSVP URL
+        type: string
+      - name: registrationDeadline
+        label: Registration deadline
+        type: date
+      - name: featured
+        label: Feature on homepage
+        type: boolean
+
+  - name: projects
+    label: Projects
+    type: collection
+    path: src/content/projects
+    view:
+      primary: title
+      fields: [title, status, year]
+    fields:
+      - name: title
+        label: Project title
+        type: string
+        required: true
+      - name: status
+        label: Status
+        type: select
+        options:
+          values: [Ongoing, Completed, Upcoming]
+      - name: year
+        label: Year
+        type: string
+      - name: client
+        label: Client / partner
+        type: string
+      - name: location
+        label: Geographic focus
+        type: string
+      - name: image
+        label: Featured image
+        type: image
+      - name: summary
+        label: Short description
+        type: text
+      - name: body
+        label: Project details
+        type: rich-text
+      - name: themes
+        label: Research themes
+        type: string
+        list: true
+      - name: researchers
+        label: Researchers
+        type: reference
+        options:
+          collection: people
+          multiple: true
+          search: name
+      - name: outputs
+        label: Outputs
+        type: string
+        list: true
+      - name: featured
+        label: Feature on homepage
+        type: boolean
+
+  - name: services
+    label: Services
+    type: collection
+    path: src/content/services
+    view:
+      primary: title
+      fields: [title]
+    fields:
+      - name: title
+        label: Service title
+        type: string
+        required: true
+      - name: number
+        label: Number
+        type: string
+      - name: summary
+        label: Summary
+        type: text
+      - name: body
+        label: Full description
+        type: rich-text
+      - name: capabilities
+        label: Capabilities
+        type: string
+        list: true
+      - name: image
+        label: Image
+        type: image
+      - name: order
+        label: Display order
+        type: number
+
+  - name: insights
+    label: Insights
+    type: collection
+    path: src/content/insights
+    view:
+      primary: title
+      fields: [title, type, date]
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: type
+        label: Content type
+        type: select
+        options:
+          values: [Research Note, Policy Brief, Article, Report, Blog]
+      - name: date
+        label: Publication date
+        type: date
+      - name: author
+        label: Author(s)
+        type: string
+        list: true
+      - name: image
+        label: Featured image
+        type: image
+      - name: excerpt
+        label: Excerpt
+        type: text
+      - name: body
+        label: Content
+        type: rich-text
+      - name: pdf
+        label: PDF
+        type: file
+      - name: project
+        label: Related project
+        type: reference
+        options:
+          collection: projects
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: featured
+        label: Feature on homepage
+        type: boolean
+
+  - name: pages
+    label: Pages
+    type: collection
+    path: src/content/pages
+    view:
+      primary: title
+      fields: [title, pageType]
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: pageType
+        label: Page type
+        type: select
+        options:
+          values: [home, about]
+      - name: eyebrow
+        label: Eyebrow
+        type: string
+      - name: heroTitle
+        label: Hero headline
+        type: text
+      - name: heroText
+        label: Hero text
+        type: text
+      - name: whatWeDoTitle
+        label: What we do heading
+        type: string
+      - name: whatWeDoText
+        label: What we do description
+        type: text
+      - name: whatWeDoCards
+        label: What we do cards
+        type: object
+        list: true
+        fields:
+          - name: number
+            label: Number
+            type: string
+          - name: title
+            label: Title
+            type: string
+          - name: text
+            label: Description
+            type: string
+      - name: pillars
+        label: Legacy pillars
+        type: object
+        list: true
+        fields:
+          - name: number
+            type: string
+          - name: title
+            type: string
+          - name: text
+            type: string
+      - name: ctaTitle
+        label: CTA title
+        type: string
+      - name: ctaText
+        label: CTA text
+        type: text
+      - name: ctaLabel
+        label: CTA button
+        type: string
+      - name: ctaUrl
+        label: CTA URL
+        type: string
+      - name: metaDescription
+        label: Meta description
+        type: text
