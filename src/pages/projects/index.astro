@@ -1,0 +1,11 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getEntry, getCollection } from 'astro:content';
+const pageEntry = await getEntry('pages', 'projects');
+if (!pageEntry) throw new Error('Missing Projects page content entry.');
+const projects = (await getCollection('projects')).sort((a,b) => (b.data.year || '').localeCompare(a.data.year || ''));
+---
+<Layout title={pageEntry.data.title ?? 'Projects'} description={pageEntry.data.metaDescription}>
+  <section class="page-hero"><div class="container"><div class="eyebrow">{pageEntry.data.eyebrow}</div><h1>{pageEntry.data.heroTitle}</h1><p>{pageEntry.data.heroText}</p></div></section>
+  <section class="section"><div class="container"><div class="grid project-grid">{projects.map(p => <a class="project" href={`/projects/${p.id}`}><div>{p.data.image ? <img class="project-image" src={p.data.image} alt="" /> : <div class="project-image" />}</div><div class="project-body"><span class="pill">{p.data.status || 'Project'}{p.data.year ? ` · ${p.data.year}` : ''}</span><h3>{p.data.title}</h3><p>{p.data.summary}</p></div></a>)}</div></div></section>
+</Layout>

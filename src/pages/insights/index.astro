@@ -1,0 +1,21 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getEntry, getCollection } from 'astro:content';
+const pageEntry = await getEntry('pages', 'insights');
+if (!pageEntry) throw new Error('Missing Insights page content entry.');
+const insights = (await getCollection('insights')).sort((a,b) => b.data.date.valueOf() - a.data.date.valueOf());
+const filters = ['All', 'Research Note', 'Policy Brief', 'Article', 'Report', 'Blog'];
+---
+<Layout title={pageEntry.data.title ?? 'Insights'} description={pageEntry.data.metaDescription}>
+  <section class="page-hero"><div class="container"><div class="eyebrow">{pageEntry.data.eyebrow}</div><h1>{pageEntry.data.heroTitle}</h1><p>{pageEntry.data.heroText}</p></div></section>
+  <section class="section"><div class="container"><div class="filter" role="tablist" aria-label="Filter insights">{filters.map((filter, index) => <button type="button" class={index === 0 ? 'active' : ''} data-filter={filter}>{filter}</button>)}</div><div class="grid insight-grid">{insights.map(i => <a class="insight" data-insight-type={i.data.type} href={`/insights/${i.id}`}><span class="pill">{i.data.type}</span><h3>{i.data.title}</h3><p>{i.data.excerpt}</p><small>{i.data.date.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</small></a>)}</div></div></section>
+</Layout>
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+  const cards = document.querySelectorAll<HTMLElement>('[data-insight-type]');
+  buttons.forEach(button => button.addEventListener('click', () => {
+    const filter = button.dataset.filter;
+    buttons.forEach(item => item.classList.toggle('active', item === button));
+    cards.forEach(card => { card.hidden = !!filter && filter !== 'All' && card.dataset.insightType !== filter; });
+  }));
+</script>

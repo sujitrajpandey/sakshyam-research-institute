@@ -1,0 +1,13 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getEntry, render } from 'astro:content';
+const pageEntry = await getEntry('pages', 'about');
+if (!pageEntry) throw new Error('Missing About Us page content entry.');
+const { Content } = await render(pageEntry);
+---
+<Layout title={pageEntry.data.title ?? 'About Us'} description={pageEntry.data.metaDescription}>
+  <section class="page-hero"><div class="container"><div class="eyebrow">{pageEntry.data.eyebrow}</div><h1>{pageEntry.data.heroTitle}</h1><p>{pageEntry.data.heroText}</p></div></section>
+  <section class="section"><div class="container"><div class="section-head"><div><div class="eyebrow">{pageEntry.data.sectionEyebrow}</div><h2>{pageEntry.data.sectionTitle}</h2></div><div class="prose">{Content && <Content />}</div></div></div></section>
+  <section class="section" style="background:var(--mist)"><div class="container"><div class="section-head"><div><div class="eyebrow">{pageEntry.data.secondaryEyebrow}</div><h2>{pageEntry.data.secondaryTitle}</h2></div><p>{pageEntry.data.secondaryText}</p></div></div></section>
+  <section class="section" id="contact"><div class="container"><div class="cta"><div class="cta-inner"><div><div class="eyebrow" style="color:rgba(154,208,214,.95)">Contact</div><h2>{pageEntry.data.ctaTitle}</h2><p>{pageEntry.data.ctaText}</p></div><a class="btn" style="background:white;border-color:white" href={pageEntry.data.ctaUrl}>{pageEntry.data.ctaLabel}</a></div></div></div></section>
+</Layout>

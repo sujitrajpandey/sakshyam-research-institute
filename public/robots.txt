@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sakshyamresearch.org.np/sitemap-index.xml

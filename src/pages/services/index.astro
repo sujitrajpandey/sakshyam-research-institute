@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getEntry, getCollection, render } from 'astro:content';
+const pageEntry = await getEntry('pages', 'services');
+if (!pageEntry) throw new Error('Missing Services page content entry.');
+const services = (await getCollection('services')).sort((a,b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+const renderedServices = await Promise.all(services.map(async service => ({ service, Content: (await render(service)).Content })));
+---
+<Layout title={pageEntry.data.title ?? 'Services'} description={pageEntry.data.metaDescription}>
+  <section class="page-hero"><div class="container"><div class="eyebrow">{pageEntry.data.eyebrow}</div><h1>{pageEntry.data.heroTitle}</h1><p>{pageEntry.data.heroText}</p></div></section>
+  <section class="section"><div class="container"><div class="service-list">{renderedServices.map(({service, Content}) => <article class="service"><div class="service-number">{service.data.number || '—'}</div><div><h2>{service.data.title}</h2><p>{service.data.summary}</p>{service.data.capabilities?.length ? <ul>{service.data.capabilities.map(c => <li>{c}</li>)}</ul> : null}<div class="prose service-body"><Content /></div></div></article>)}</div></div></section>
+</Layout>
