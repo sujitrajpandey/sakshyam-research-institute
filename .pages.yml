@@ -70,3 +70,18 @@ content:
         type: string
       - name: body
         type: rich-text
+
+  - name: projects
+    label: Projects
+    type: collection
+    folder: src/content/projects
+    fields:
+      - name: title
+        type: string
+      - name: summary
+        label: Short Summary (for the main projects page)
+        type: text
+      - name: cover_image
+        type: image
+      - name: body
+        type: rich-text
