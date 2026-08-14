@@ -28,8 +28,18 @@ const eventsCollection = defineCollection({
   }),
 });
 
+const projectsCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    summary: z.string().optional(),
+    cover_image: z.string().optional(),
+  }),
+});
+
 export const collections = {
   'pages': pagesCollection,
   'people': peopleCollection,
   'events': eventsCollection,
+  'projects': projectsCollection,
 };
