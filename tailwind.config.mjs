@@ -4,26 +4,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: 'var(--color-ink)',
-        'ink-soft': 'var(--color-ink-soft)',
-        teal: {
-          DEFAULT: 'var(--color-teal)',
-          deep: 'var(--color-teal-deep)',
-          mid: 'var(--color-teal-mid)',
-          light: 'var(--color-teal-light)',
+        slate: {
+          900: '#344652', // Deep Slate from "Sr" and "SAKSHYAM"
         },
-        cream: 'var(--color-bg)',
-        'cream-soft': 'var(--color-bg-soft)',
-        line: 'var(--color-line)',
+        teal: {
+          600: '#459B9B', // Institute Teal from "RESEARCH INSTITUTE" banner
+          300: '#88C5C5', // Light Aqua from globe logo segments
+        },
+        background: '#F8F9FA'
       },
       fontFamily: {
-        heading: 'var(--font-heading)',
-        body: 'var(--font-body)',
-      },
-      maxWidth: {
-        wrap: '1240px',
-      },
+        // You can link these to Google Fonts in your layout
+        sans: ['Inter', 'sans-serif'], 
+        heading: ['Merriweather', 'serif'], 
+      }
     },
   },
   plugins: [],
-};
+}
