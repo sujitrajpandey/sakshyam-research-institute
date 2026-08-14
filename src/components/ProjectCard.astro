@@ -1,0 +1,19 @@
+---
+export interface Props {
+  project: any;
+}
+const { project } = Astro.props;
+const { slug, data } = project;
+const isOngoing = data.status === 'ongoing';
+---
+
+<a href={`/projects/${slug}`} class="card p-7 flex flex-col h-full group">
+  <span class="tag mb-4 w-fit" style={isOngoing ? '' : 'background-color: var(--color-line); color: var(--color-ink-soft);'}>
+    {isOngoing ? 'Ongoing' : 'Completed'} · {data.year}
+  </span>
+  <h3 class="h4 mb-2.5 group-hover:underline decoration-1 underline-offset-4">{data.title}</h3>
+  <p class="prose-body text-[0.95rem] flex-1">{data.summary}</p>
+  <span class="mt-5 inline-flex items-center gap-1.5 font-semibold text-sm" style="color: var(--color-teal-deep);">
+    Read more <span aria-hidden="true">→</span>
+  </span>
+</a>

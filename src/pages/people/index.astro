@@ -1,0 +1,71 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import PersonCard from '../../components/PersonCard.astro';
+
+const allPeople = await getCollection('people');
+const sortByOrder = (a: any, b: any) => a.data.order - b.data.order;
+
+const researchers = allPeople.filter((p) => p.data.category === 'researcher').sort(sortByOrder);
+const management = allPeople.filter((p) => p.data.category === 'management').sort(sortByOrder);
+const advisors = allPeople.filter((p) => p.data.category === 'advisor').sort(sortByOrder);
+
+const groups = [
+  {
+    key: 'researchers',
+    eyebrow: 'Researchers',
+    heading: 'Research & evidence.',
+    description: 'Researchers who design, conduct and interpret rigorous work.',
+    people: researchers,
+    emptyText: 'Researcher profiles will be added soon.',
+  },
+  {
+    key: 'management',
+    eyebrow: 'Management',
+    heading: 'Making the work happen.',
+    description: 'The people responsible for coordination, operations and delivery.',
+    people: management,
+    emptyText: 'Management profiles will be added soon.',
+  },
+  {
+    key: 'advisors',
+    eyebrow: 'Advisors',
+    heading: 'Experience around the table.',
+    description: 'Experienced practitioners and scholars who strengthen our perspective and judgement.',
+    people: advisors,
+    emptyText: 'Advisor profiles will be added soon.',
+  },
+];
+---
+
+<Layout title="People" description="Meet the researchers, management team and advisors at Sakshyam Research Institute.">
+  <section class="wrap pt-14 pb-16 md:pt-20 md:pb-20">
+    <p class="eyebrow mb-5">People</p>
+    <h1 class="h1 mb-6 max-w-3xl">The people behind the work.</h1>
+    <p class="lede max-w-2xl">
+      A multidisciplinary team of researchers, managers and advisors bringing different perspectives to complex
+      questions.
+    </p>
+  </section>
+
+  {
+    groups.map((group, i) => (
+      <section class={`py-16 md:py-20 ${i % 2 === 1 ? 'section-soft' : ''}`} id={group.key}>
+        <div class="wrap">
+          <div class="max-w-2xl mb-12">
+            <p class="eyebrow mb-4">{group.eyebrow}</p>
+            <h2 class="h2 mb-4">{group.heading}</h2>
+            <p class="lede">{group.description}</p>
+          </div>
+          {group.people.length > 0 ? (
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+              {group.people.map((person) => <PersonCard person={person} />)}
+            </div>
+          ) : (
+            <p class="prose-body">{group.emptyText}</p>
+          )}
+        </div>
+      </section>
+    ))
+  }
+</Layout>

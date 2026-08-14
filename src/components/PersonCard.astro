@@ -1,0 +1,24 @@
+---
+export interface Props {
+  person: any;
+}
+const { person } = Astro.props;
+const { slug, data } = person;
+---
+
+<a href={`/people/${slug}`} class="group flex flex-col">
+  <div class="aspect-square w-full overflow-hidden rounded-2xl mb-4 section-soft">
+    {
+      data.photo && (
+        <img
+          src={data.photo}
+          alt={data.name}
+          class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-300"
+        />
+      )
+    }
+  </div>
+  <h3 class="h4 mb-1 group-hover:underline decoration-1 underline-offset-4">{data.name}</h3>
+  <p class="text-sm font-semibold mb-2" style="color: var(--color-teal-deep);">{data.role}</p>
+  <p class="prose-body text-[0.92rem]">{data.short_bio}</p>
+</a>

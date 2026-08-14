@@ -1,0 +1,92 @@
+---
+export interface Props {
+  settings: any;
+}
+const { settings } = Astro.props;
+
+const navItems = [
+  { label: 'About Us', href: '/about' },
+  { label: 'People', href: '/people' },
+  { label: 'Services', href: '/services' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Insights', href: '/insights' },
+];
+---
+
+<header class="sticky top-0 z-50 border-b bg-white/90 backdrop-blur">
+  <div class="wrap flex items-center justify-between py-4">
+    <a href="/" class="flex items-center gap-2 shrink-0">
+      <img
+        src={settings.logo}
+        alt={settings.site_title}
+        class="h-9 md:h-10 w-auto object-contain"
+      />
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-8">
+      {
+        navItems.map((item) => (
+          <a
+            href={item.href}
+            class="text-[0.95rem] font-medium text-ink-soft hover:text-teal-deep transition-colors"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="hidden lg:block">
+      <a href={settings.work_with_us_url} class="btn-primary btn">
+        {settings.work_with_us_label}
+      </a>
+    </div>
+
+    <button
+      id="menu-toggle"
+      class="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-full border border-line"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+    >
+      <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="hidden lg:hidden border-t bg-white">
+    <div class="wrap py-4 flex flex-col gap-1">
+      {
+        navItems.map((item) => (
+          <a
+            href={item.href}
+            class="py-2.5 text-[1.02rem] font-medium text-ink border-b border-line/70 last:border-0"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <a href={settings.work_with_us_url} class="btn-primary btn mt-4 justify-center">
+        {settings.work_with_us_label}
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+
+  toggle?.addEventListener('click', () => {
+    const isHidden = menu?.classList.contains('hidden');
+    menu?.classList.toggle('hidden');
+    iconOpen?.classList.toggle('hidden');
+    iconClose?.classList.toggle('hidden');
+    toggle.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+  });
+</script>

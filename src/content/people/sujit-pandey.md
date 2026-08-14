@@ -1,0 +1,14 @@
+---
+name: "Sujit Pandey"
+role: "Executive Director"
+category: "management"
+photo: "/images/people/sujit-pandey.svg"
+short_bio: "Research, policy and institutional development."
+expertise:
+  - "Research design"
+  - "Entrepreneurship and private sector development"
+  - "Policy analysis"
+linkedin_url: ""
+order: 1
+---
+Sujit Pandey leads Sakshyam Research Institute, bringing together research, policy analysis and practical institutional perspectives. This profile is a starter migration and should be replaced with the approved biography from Pages CMS if a longer version is required.
