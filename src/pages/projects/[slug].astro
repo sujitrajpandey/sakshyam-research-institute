@@ -3,47 +3,30 @@ import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
-  const projects = await getCollection('projects');
-  return projects.map((project) => ({
+  const projectEntries = await getCollection('projects');
+  return projectEntries.map(project => ({
     params: { slug: project.slug },
     props: { project },
   }));
 }
 
 const { project } = Astro.props;
-const { data } = project;
 const { Content } = await project.render();
 ---
+<Layout title={`${project.data.title} - Sakshyam Research Institute`}>
+  <div class="max-w-4xl mx-auto py-16 px-4">
+    <a href="/projects" class="text-teal-600 hover:text-slate-900 mb-8 inline-block font-bold">&larr; Back to All Projects</a>
+    
+    <div class="bg-white shadow-sm rounded-lg p-8 md:p-12 border-t-4 border-slate-900">
+        <h1 class="text-4xl font-heading font-bold text-slate-900 mb-8">{project.data.title}</h1>
+        
+        {project.data.cover_image && (
+            <img src={project.data.cover_image} alt={project.data.title} class="w-full h-64 object-cover rounded-lg mb-8" />
+        )}
 
-<Layout title={data.title} description={data.summary}>
-  <section class="wrap pt-14 pb-16 md:pt-20 md:pb-20">
-    <a href="/projects" class="text-sm font-semibold mb-8 inline-flex items-center gap-1.5" style="color: var(--color-teal-deep);">
-      ← Back to Projects
-    </a>
-    <span class="tag mb-6 w-fit" style={data.status === 'ongoing' ? '' : 'background-color: var(--color-line); color: var(--color-ink-soft);'}>
-      {data.status === 'ongoing' ? 'Ongoing' : 'Completed'} · {data.year}
-    </span>
-    <h1 class="h1 mb-6 max-w-3xl">{data.title}</h1>
-    <p class="lede max-w-2xl">{data.summary}</p>
-  </section>
-
-  {data.image && (
-    <section class="wrap pb-16">
-      <img src={data.image} alt={data.title} class="w-full rounded-2xl" />
-    </section>
-  )}
-
-  <section class="pb-24">
-    <div class="wrap grid md:grid-cols-[1fr_280px] gap-12">
-      <div class="prose-body max-w-2xl">
-        <Content />
-      </div>
-      {data.geographic_focus && (
-        <div>
-          <h3 class="h4 mb-3">Geographic focus</h3>
-          <p class="prose-body">{data.geographic_focus}</p>
+        <div class="prose prose-lg text-slate-900 max-w-none space-y-4">
+            <Content />
         </div>
-      )}
     </div>
-  </section>
+  </div>
 </Layout>
