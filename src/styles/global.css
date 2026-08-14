@@ -34,7 +34,7 @@
   }
 
   .h1 {
-    font-family: var(--font-heading), 'Fraunces', serif;
+    font-family: var(--font-heading), 'DM Sans', sans-serif;
     font-size: calc(3rem * var(--heading-scale, 1));
     line-height: 1.06;
     letter-spacing: -0.01em;
