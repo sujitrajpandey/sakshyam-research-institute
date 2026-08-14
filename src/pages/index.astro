@@ -2,51 +2,41 @@
 import { getCollection, getEntry } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 
-// Fetch Events and sort by date
 const allEvents = await getCollection('events');
 const upcomingEvents = allEvents.filter(event => event.data.status === 'Upcoming').sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
 const pastEvents = allEvents.filter(event => event.data.status === 'Past').sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-// Fetch Homepage Content
 const homepageContent = await getEntry('pages', 'homepage');
 const { Content } = await homepageContent.render();
 ---
-
 <Layout title="Sakshyam Research Institute">
-  
-  <!-- HERO SECTION -->
   <section class="relative w-full h-[600px] flex items-center justify-center bg-slate-900 text-white">
-    <!-- Using hero.png as requested -->
     <div class="absolute inset-0 z-0">
-      <img src="/images/hero.png" alt="Hero Background" class="w-full h-full object-cover opacity-30" />
+      <img src={homepageContent.data.hero_image || "/images/hero.png"} alt="Hero Background" class="w-full h-full object-cover opacity-20" />
     </div>
     <div class="relative z-10 text-center px-4">
-      <h1 class="text-5xl font-heading font-bold mb-4">Sakshyam Research Institute</h1>
-      <p class="text-xl text-teal-300">Empowering Decisions Through Data</p>
+      <h1 class="text-5xl font-heading font-bold mb-4">{homepageContent.data.title}</h1>
+      <p class="text-xl text-teal-300">Evidence • Implementation • Inclusion</p>
     </div>
   </section>
 
-  <!-- WHAT WE DO -->
   <section class="py-16 bg-background px-4 md:px-8 max-w-7xl mx-auto">
     <h2 class="text-3xl font-heading text-slate-900 mb-8 text-center border-b-2 border-teal-600 pb-2 inline-block">What We Do</h2>
-    <div class="prose prose-lg text-slate-900 mx-auto">
+    <div class="prose prose-lg text-slate-900 mx-auto max-w-4xl space-y-4">
       <Content />
     </div>
   </section>
 
-  <!-- EVENTS SECTION -->
-  <section class="py-16 bg-white px-4 md:px-8 max-w-7xl mx-auto">
+  <section class="py-16 bg-white px-4 md:px-8 max-w-7xl mx-auto rounded-lg shadow-sm">
     <h2 class="text-3xl font-heading text-slate-900 mb-12 text-center">Events</h2>
-    
     <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-      <!-- Upcoming Events -->
       <div>
         <h3 class="text-2xl text-teal-600 mb-6 border-l-4 border-teal-600 pl-3">Upcoming Events</h3>
         {upcomingEvents.length > 0 ? (
           <div class="space-y-6">
             {upcomingEvents.map(event => (
               <div class="flex gap-4 border p-4 rounded-lg shadow-sm">
-                <img src={event.data.image} alt={event.data.title} class="w-24 h-24 object-cover rounded" />
+                {event.data.image && <img src={event.data.image} alt={event.data.title} class="w-24 h-24 object-cover rounded" />}
                 <div>
                   <h4 class="font-bold text-slate-900">{event.data.title}</h4>
                   <p class="text-sm text-gray-500 mb-2">{event.data.date.toDateString()}</p>
@@ -62,24 +52,25 @@ const { Content } = await homepageContent.render();
           <p class="text-gray-500">No upcoming events at this time.</p>
         )}
       </div>
-
-      <!-- Past Events -->
       <div>
         <h3 class="text-2xl text-slate-900 mb-6 border-l-4 border-slate-900 pl-3">Past Events</h3>
-        <div class="space-y-6">
-          {pastEvents.map(event => (
-            <div class="flex gap-4 border p-4 rounded-lg bg-gray-50 opacity-80">
-              <img src={event.data.image} alt={event.data.title} class="w-24 h-24 object-cover rounded grayscale" />
-              <div>
-                <h4 class="font-bold text-slate-900">{event.data.title}</h4>
-                <p class="text-sm text-gray-500 mb-2">{event.data.date.toDateString()}</p>
-                <p class="text-sm">{event.body}</p>
+        {pastEvents.length > 0 ? (
+           <div class="space-y-6">
+            {pastEvents.map(event => (
+              <div class="flex gap-4 border p-4 rounded-lg bg-gray-50 opacity-80">
+                {event.data.image && <img src={event.data.image} alt={event.data.title} class="w-24 h-24 object-cover rounded grayscale" />}
+                <div>
+                  <h4 class="font-bold text-slate-900">{event.data.title}</h4>
+                  <p class="text-sm text-gray-500 mb-2">{event.data.date.toDateString()}</p>
+                  <p class="text-sm">{event.body}</p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <p class="text-gray-500">No past events recorded.</p>
+        )}
       </div>
     </div>
   </section>
-
 </Layout>
