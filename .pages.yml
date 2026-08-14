@@ -85,3 +85,21 @@ content:
         type: image
       - name: body
         type: rich-text
+
+  - name: insights
+    label: Insights & Articles
+    type: collection
+    folder: src/content/insights
+    fields:
+      - name: title
+        type: string
+      - name: date
+        type: date
+      - name: author
+        type: string
+      - name: cover_image
+        type: image
+      - name: summary
+        type: text
+      - name: body
+        type: rich-text
