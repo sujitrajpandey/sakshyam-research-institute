@@ -2,7 +2,7 @@
 name: Ravi Kumar Shah
 role: Operations Manager
 category: management
-photo: /images/people/Ravi.jpg
+photo: /images/Ravi_Shah.jpeg
 short_bio: Supports research operations, coordination and organizational delivery.
 expertise:
   - Operations
