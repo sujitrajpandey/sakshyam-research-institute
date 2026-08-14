@@ -6,50 +6,34 @@ content:
   - name: settings
     label: Site Settings
     type: file
-    file: content/settings.md
+    file: src/content/settings/site.json
     fields:
       - name: site_title
         type: string
       - name: logo
-        label: Site Logo (Full Logo.png)
+        label: Site Logo
         type: image
       - name: favicon
-        label: Favicon (favicon.png)
+        label: Favicon
         type: image
-      - name: base_font_size
-        type: string
-        description: "e.g., 16px or 1rem"
 
   - name: pages
     label: Standard Pages
     type: collection
-    folder: content/pages
+    folder: src/content/pages
     fields:
       - name: title
         type: string
-      - name: body
-        type: rich-text
-
-  - name: homepage
-    label: Homepage Sections
-    type: file
-    file: content/homepage.md
-    fields:
       - name: hero_image
-        label: Hero Background Image (hero.png)
+        label: Hero Background Image (Homepage only)
         type: image
-      - name: hero_title
-        type: string
-      - name: hero_subtitle
-        type: string
-      - name: what_we_do_body
-        label: "What We Do - Description"
+      - name: body
         type: rich-text
 
   - name: people
     label: Team Members
     type: collection
-    folder: content/people
+    folder: src/content/people
     fields:
       - name: name
         type: string
@@ -62,13 +46,13 @@ content:
           - Advisors
       - name: photo
         type: image
-      - name: bio
+      - name: body
         type: rich-text
 
   - name: events
     label: Events
     type: collection
-    folder: content/events
+    folder: src/content/events
     fields:
       - name: title
         type: string
@@ -82,7 +66,7 @@ content:
           - Upcoming
           - Past
       - name: rsvp_link
-        label: RSVP URL (for upcoming events)
+        label: RSVP URL
         type: string
-      - name: description
+      - name: body
         type: rich-text
