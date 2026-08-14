@@ -9,21 +9,20 @@ const homeEntry = await getEntry('home', 'index');
 const home = homeEntry!.data;
 
 /*
- * HERO TEXT OVERLAY
+ * HERO TEXT PANEL
  *
- * Controls the transparency of the teal background behind
- * the hero text only.
+ * Controls the transparency of the teal background
+ * behind the hero text.
  *
- * 0    = completely transparent
+ * 0    = transparent
  * 0.10 = very subtle
- * 0.20 = subtle
- * 0.30 = moderate
- * 0.40 = strong
- * 0.50 = very strong
+ * 0.15 = subtle
+ * 0.20 = moderate
+ * 0.30 = stronger
  *
- * Recommended starting point: 0.35
+ * Recommended: 0.15
  */
-const heroOverlayOpacity = 0.25;
+const heroOverlayOpacity = 0.15;
 
 const allEvents = await getCollection('events');
 
@@ -54,9 +53,9 @@ const allInsights = (await getCollection('insights'))
 
   <section class="relative overflow-hidden border-b border-line/70">
 
-    <!-- Full-width hero image -->
     <div class="relative min-h-[620px] md:min-h-[700px] lg:min-h-[760px]">
 
+      <!-- Full-width hero image -->
       {
         home.hero.image && (
           <img
@@ -75,7 +74,7 @@ const allInsights = (await getCollection('insights'))
 
         <div class="max-w-3xl py-20 md:py-28 lg:py-32">
 
-          <!-- Teal overlay ONLY behind the text -->
+          <!-- Subtle teal panel behind hero text -->
           <div
             class="rounded-2xl px-6 py-7 md:px-8 md:py-9"
             style={`
@@ -100,7 +99,7 @@ const allInsights = (await getCollection('insights'))
               home.hero.eyebrow && (
                 <p
                   class="eyebrow mb-6"
-                  style="color: white;"
+                  style="color: var(--color-ink);"
                 >
                   {home.hero.eyebrow}
                 </p>
@@ -110,26 +109,20 @@ const allInsights = (await getCollection('insights'))
             <!-- Main heading -->
             <h1
               class="h1 mb-7 max-w-3xl"
-              style="
-                color: white;
-                text-shadow: 0 2px 12px rgba(0,0,0,0.20);
-              "
+              style="color: var(--color-ink);"
             >
               {home.hero.heading}
             </h1>
 
-            <!-- Description -->
+            <!-- Hero description -->
             <p
               class="lede mb-9 max-w-2xl"
-              style="
-                color: rgba(255,255,255,0.94);
-                text-shadow: 0 1px 8px rgba(0,0,0,0.18);
-              "
+              style="color: var(--color-ink);"
             >
               {home.hero.subheading}
             </p>
 
-            <!-- Buttons -->
+            <!-- Hero buttons -->
             <div class="flex flex-wrap gap-4">
 
               {
@@ -150,9 +143,9 @@ const allInsights = (await getCollection('insights'))
                     href={home.hero.secondary_button_url}
                     class="btn"
                     style="
-                      background: rgba(255,255,255,0.12);
-                      color: white;
-                      border: 1px solid rgba(255,255,255,0.65);
+                      background: rgba(255,255,255,0.40);
+                      color: var(--color-ink);
+                      border: 1px solid var(--color-ink);
                       backdrop-filter: blur(5px);
                     "
                   >
@@ -197,6 +190,7 @@ const allInsights = (await getCollection('insights'))
         </p>
 
       </div>
+
 
       <div class="grid sm:grid-cols-3 gap-8">
 
@@ -254,8 +248,10 @@ const allInsights = (await getCollection('insights'))
 
       </div>
 
+
       {
         orderedEvents.length > 0 ? (
+
           <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
             {
@@ -265,10 +261,13 @@ const allInsights = (await getCollection('insights'))
             }
 
           </div>
+
         ) : (
+
           <p class="prose-body">
             More events will be announced soon.
           </p>
+
         )
       }
 
@@ -305,6 +304,7 @@ const allInsights = (await getCollection('insights'))
 
         </div>
 
+
         <a
           href="/projects"
           class="btn btn-outline bg-white shrink-0 w-fit"
@@ -313,6 +313,7 @@ const allInsights = (await getCollection('insights'))
         </a>
 
       </div>
+
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
@@ -357,6 +358,7 @@ const allInsights = (await getCollection('insights'))
 
         </div>
 
+
         <a
           href="/insights"
           class="btn btn-outline shrink-0 w-fit"
@@ -365,6 +367,7 @@ const allInsights = (await getCollection('insights'))
         </a>
 
       </div>
+
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
