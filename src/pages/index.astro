@@ -19,10 +19,8 @@ const home = homeEntry!.data;
  * 0.15 = subtle
  * 0.20 = moderate
  * 0.30 = stronger
- *
- * Recommended: 0.15
  */
-const heroOverlayOpacity = 0.35;
+const heroOverlayOpacity = 0.15;
 
 const allEvents = await getCollection('events');
 
@@ -72,9 +70,14 @@ const allInsights = (await getCollection('insights'))
         class="relative z-10 wrap min-h-[620px] md:min-h-[700px] lg:min-h-[760px] flex items-center"
       >
 
-        <div class="max-w-3xl py-20 md:py-28 lg:py-32">
+        <!--
+          Reduced vertical padding by approximately 25%.
+          Previous: py-20 md:py-28 lg:py-32
+          Now:      py-15 md:py-21 lg:py-24
+        -->
+        <div class="max-w-3xl py-15 md:py-21 lg:py-24">
 
-          <!-- Subtle teal panel behind hero text -->
+          <!-- Teal panel behind hero text -->
           <div
             class="rounded-2xl px-6 py-7 md:px-8 md:py-9"
             style={`
@@ -191,7 +194,6 @@ const allInsights = (await getCollection('insights'))
 
       </div>
 
-
       <div class="grid sm:grid-cols-3 gap-8">
 
         {
@@ -248,10 +250,8 @@ const allInsights = (await getCollection('insights'))
 
       </div>
 
-
       {
         orderedEvents.length > 0 ? (
-
           <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
             {
@@ -261,13 +261,10 @@ const allInsights = (await getCollection('insights'))
             }
 
           </div>
-
         ) : (
-
           <p class="prose-body">
             More events will be announced soon.
           </p>
-
         )
       }
 
@@ -304,7 +301,6 @@ const allInsights = (await getCollection('insights'))
 
         </div>
 
-
         <a
           href="/projects"
           class="btn btn-outline bg-white shrink-0 w-fit"
@@ -313,7 +309,6 @@ const allInsights = (await getCollection('insights'))
         </a>
 
       </div>
-
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
@@ -358,7 +353,6 @@ const allInsights = (await getCollection('insights'))
 
         </div>
 
-
         <a
           href="/insights"
           class="btn btn-outline shrink-0 w-fit"
@@ -367,7 +361,6 @@ const allInsights = (await getCollection('insights'))
         </a>
 
       </div>
-
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
