@@ -1,5 +1,5 @@
 ---
-name: Sujit Pandey
+name: Sujit Pandey, PhD
 role: Executive Director
 category: management
 photo: /images/people/Sujit.jpg
