@@ -188,14 +188,15 @@ content:
     label: "👥 People"
     type: collection
     path: src/content/people
-    format: yaml-frontmatter
-    filename: "{fields.name}.md"
+    format: yaml
+    filename: "{fields.slug}.yaml"
     view:
       fields: [photo, name, role, category]
       primary: name
       sort: [category, order]
       default: { sort: order, order: asc }
     fields:
+      - { name: slug, label: "URL slug", type: string, required: true }
       - { name: name, label: "Full name", type: string, required: true }
       - { name: role, label: "Role / title", type: string }
       - name: category
@@ -219,14 +220,15 @@ content:
     label: "📊 Projects"
     type: collection
     path: src/content/projects
-    format: yaml-frontmatter
-    filename: "{fields.title}.md"
+    format: yaml
+    filename: "{fields.slug}.yaml"
     view:
       fields: [title, status, year]
       primary: title
       sort: [order]
       default: { sort: order, order: asc }
     fields:
+      - { name: slug, label: "URL slug", type: string, required: true }
       - { name: title, label: "Title", type: string, required: true }
       - name: status
         label: "Status"
@@ -246,14 +248,15 @@ content:
     label: "💡 Insights"
     type: collection
     path: src/content/insights
-    format: yaml-frontmatter
-    filename: "{fields.title}.md"
+    format: yaml
+    filename: "{fields.slug}.yaml"
     view:
       fields: [title, category, date]
       primary: title
       sort: [date]
       default: { sort: date, order: desc }
     fields:
+      - { name: slug, label: "URL slug", type: string, required: true }
       - { name: title, label: "Title", type: string, required: true }
       - name: category
         label: "Category"
