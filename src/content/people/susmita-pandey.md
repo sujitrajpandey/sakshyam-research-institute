@@ -1,5 +1,5 @@
 ---
-name: Susmita Pandey
+name: Susmita Pandey, PhD
 role: Senior Researcher
 category: researcher
 photo: /images/uploads/Susmita.jpg
