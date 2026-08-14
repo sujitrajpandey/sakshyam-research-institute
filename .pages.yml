@@ -1,105 +1,299 @@
 media:
-  folder: public/images
-  publicPath: /images
+  - name: images
+    label: "Images"
+    input: public/images/uploads
+    output: /images/uploads
+    categories: [image]
 
 content:
   - name: settings
-    label: Site Settings
+    label: "⚙️ Site Settings"
     type: file
-    file: src/content/settings/site.json
+    path: src/content/settings/general.yaml
     fields:
-      - name: site_title
-        type: string
-      - name: logo
-        label: Site Logo
-        type: image
-      - name: favicon
-        label: Favicon
-        type: image
+      - { name: site_title, label: "Site title", type: string, required: true }
+      - { name: tagline, label: "Tagline", type: string }
+      - { name: logo, label: "Logo (full logo, used in header/footer)", type: image, required: true, options: { media: images } }
+      - { name: logo_mark, label: "Logo mark (icon only, used on dark footer)", type: image, options: { media: images } }
+      - { name: favicon, label: "Favicon", type: image, options: { media: images } }
+      - { name: email, label: "Contact email", type: string }
+      - { name: linkedin_url, label: "LinkedIn URL", type: string }
+      - { name: location_text, label: "Location text (footer)", type: string }
+      - { name: copyright_text, label: "Copyright text (footer)", type: string }
+      - { name: footer_blurb, label: "Footer description", type: text }
+      - { name: work_with_us_label, label: "Header CTA button label", type: string }
+      - { name: work_with_us_url, label: "Header CTA button link", type: string }
+      - name: colors
+        label: "Brand colors"
+        type: object
+        description: "Hex colors used across the site. Defaults are taken from the Sakshyam logo."
+        fields:
+          - { name: ink, label: "Ink (primary dark / headings)", type: string }
+          - { name: ink_soft, label: "Ink soft (secondary text)", type: string }
+          - { name: teal_deep, label: "Teal deep (links, hover)", type: string }
+          - { name: teal, label: "Teal (primary brand accent)", type: string }
+          - { name: teal_mid, label: "Teal mid", type: string }
+          - { name: teal_light, label: "Teal light (tags, tints)", type: string }
+          - { name: bg, label: "Background (main)", type: string }
+          - { name: bg_soft, label: "Background (soft section)", type: string }
+          - { name: line, label: "Border / line color", type: string }
+      - name: typography
+        label: "Typography"
+        type: object
+        description: "Controls fonts and font sizes across the whole site."
+        fields:
+          - name: heading_font
+            label: "Heading font"
+            type: select
+            options:
+              values: ["Fraunces", "Playfair Display", "Lora", "Space Grotesk"]
+          - name: body_font
+            label: "Body font"
+            type: select
+            options:
+              values: ["Inter", "Source Sans 3", "Work Sans", "Nunito Sans"]
+          - name: base_font_size
+            label: "Base font size (px)"
+            type: number
+            description: "Scales the whole site's text up or down. Default 17."
+            options: { min: 14, max: 22 }
+          - name: heading_scale
+            label: "Heading size multiplier"
+            type: number
+            description: "Makes headings larger or smaller relative to body text. Default 1."
+            options: { min: 0.7, max: 1.5, step: 0.05 }
+          - name: body_line_height
+            label: "Body line height"
+            type: number
+            options: { min: 1.2, max: 2, step: 0.05 }
 
-  - name: pages
-    label: Standard Pages
-    type: collection
-    folder: src/content/pages
+  - name: home
+    label: "🏠 Home Page"
+    type: file
+    path: src/content/home/index.yaml
     fields:
-      - name: title
-        type: string
-      - name: hero_image
-        label: Hero Background Image (Homepage only)
-        type: image
-      - name: body
-        type: rich-text
+      - name: hero
+        label: "Hero section"
+        type: object
+        fields:
+          - { name: eyebrow, label: "Small label above heading", type: string }
+          - { name: heading, label: "Heading", type: string, required: true }
+          - { name: subheading, label: "Subheading", type: text }
+          - { name: primary_button_label, label: "Primary button label", type: string }
+          - { name: primary_button_url, label: "Primary button link", type: string }
+          - { name: secondary_button_label, label: "Secondary button label", type: string }
+          - { name: secondary_button_url, label: "Secondary button link", type: string }
+      - name: what_we_do
+        label: "'What we do' section"
+        type: object
+        fields:
+          - { name: eyebrow, label: "Small label", type: string }
+          - { name: heading, label: "Heading", type: string }
+          - { name: description, label: "Description", type: text }
+          - name: pillars
+            label: "Pillars (the 3 numbered cards)"
+            type: object
+            list: true
+            fields:
+              - { name: number, label: "Number", type: string }
+              - { name: title, label: "Title", type: string }
+              - { name: description, label: "Description", type: string }
+      - name: events_section
+        label: "Events section intro"
+        type: object
+        fields:
+          - { name: eyebrow, label: "Small label", type: string }
+          - { name: heading, label: "Heading", type: string }
+          - { name: description, label: "Description", type: text }
+      - name: projects_section
+        label: "Projects section intro"
+        type: object
+        fields:
+          - { name: eyebrow, label: "Small label", type: string }
+          - { name: heading, label: "Heading", type: string }
+          - { name: description, label: "Description", type: text }
+          - { name: button_label, label: "Button label", type: string }
+      - name: insights_section
+        label: "Insights section intro"
+        type: object
+        fields:
+          - { name: eyebrow, label: "Small label", type: string }
+          - { name: heading, label: "Heading", type: string }
+          - { name: description, label: "Description", type: text }
+          - { name: button_label, label: "Button label", type: string }
+      - name: cta
+        label: "Bottom call-to-action"
+        type: object
+        fields:
+          - { name: eyebrow, label: "Small label", type: string }
+          - { name: heading, label: "Heading", type: string }
+          - { name: description, label: "Description", type: text }
+          - { name: button_label, label: "Button label", type: string }
+          - { name: button_url, label: "Button link", type: string }
+
+  - name: about
+    label: "📄 About Page"
+    type: file
+    path: src/content/about/index.yaml
+    fields:
+      - name: hero
+        label: "Hero"
+        type: object
+        fields:
+          - { name: eyebrow, label: "Small label", type: string }
+          - { name: heading, label: "Heading", type: string }
+          - { name: subheading, label: "Subheading", type: text }
+      - name: purpose
+        label: "'Our purpose' section"
+        type: object
+        fields:
+          - { name: eyebrow, label: "Small label", type: string }
+          - { name: heading, label: "Heading", type: string }
+          - { name: body, label: "Body text", type: text }
+      - name: how_we_work
+        label: "'How we work' section"
+        type: object
+        fields:
+          - { name: eyebrow, label: "Small label", type: string }
+          - { name: heading, label: "Heading", type: string }
+          - { name: body, label: "Body text", type: text }
+      - name: contact
+        label: "Contact section"
+        type: object
+        fields:
+          - { name: eyebrow, label: "Small label", type: string }
+          - { name: heading, label: "Heading", type: string }
+          - { name: body, label: "Body text", type: text }
+          - { name: email, label: "Contact email", type: string }
+
+  - name: services
+    label: "🛠️ Services"
+    type: collection
+    path: src/content/services
+    format: yaml
+    view:
+      fields: [number, title, summary]
+      primary: title
+      sort: [order]
+      default: { sort: order, order: asc }
+    fields:
+      - { name: number, label: "Number (e.g. 01)", type: string }
+      - { name: title, label: "Title", type: string, required: true }
+      - { name: summary, label: "One-line summary", type: text }
+      - { name: bullets, label: "Bullet points", type: string, list: true }
+      - { name: description, label: "Longer description", type: text }
+      - { name: order, label: "Display order", type: number }
 
   - name: people
-    label: Team Members
+    label: "👥 People"
     type: collection
-    folder: src/content/people
+    path: src/content/people
+    format: yaml-frontmatter
+    filename: "{fields.name}.md"
+    view:
+      fields: [photo, name, role, category]
+      primary: name
+      sort: [category, order]
+      default: { sort: order, order: asc }
     fields:
-      - name: name
-        type: string
+      - { name: name, label: "Full name", type: string, required: true }
+      - { name: role, label: "Role / title", type: string }
       - name: category
-        label: Role Category
+        label: "Category"
         type: select
+        description: "Which section of the People page this person appears in."
         options:
-          - Researchers
-          - Management
-          - Advisors
-      - name: photo
-        type: image
-      - name: body
-        type: rich-text
-
-  - name: events
-    label: Events
-    type: collection
-    folder: src/content/events
-    fields:
-      - name: title
-        type: string
-      - name: date
-        type: date
-      - name: image
-        type: image
-      - name: status
-        type: select
-        options:
-          - Upcoming
-          - Past
-      - name: rsvp_link
-        label: RSVP URL
-        type: string
-      - name: body
-        type: rich-text
+          values:
+            - { label: "Researcher", value: "researcher" }
+            - { label: "Management", value: "management" }
+            - { label: "Advisor", value: "advisor" }
+        required: true
+      - { name: photo, label: "Photo", type: image, options: { media: images } }
+      - { name: short_bio, label: "Short bio (shown on card)", type: text }
+      - { name: expertise, label: "Areas of expertise", type: string, list: true }
+      - { name: linkedin_url, label: "LinkedIn URL", type: string }
+      - { name: order, label: "Display order within category", type: number }
+      - { name: body, label: "Full biography (profile page)", type: rich-text }
 
   - name: projects
-    label: Projects
+    label: "📊 Projects"
     type: collection
-    folder: src/content/projects
+    path: src/content/projects
+    format: yaml-frontmatter
+    filename: "{fields.title}.md"
+    view:
+      fields: [title, status, year]
+      primary: title
+      sort: [order]
+      default: { sort: order, order: asc }
     fields:
-      - name: title
-        type: string
-      - name: summary
-        label: Short Summary (for the main projects page)
-        type: text
-      - name: cover_image
-        type: image
-      - name: body
-        type: rich-text
+      - { name: title, label: "Title", type: string, required: true }
+      - name: status
+        label: "Status"
+        type: select
+        options:
+          values:
+            - { label: "Ongoing", value: "ongoing" }
+            - { label: "Completed", value: "completed" }
+      - { name: year, label: "Year", type: string }
+      - { name: summary, label: "Summary (shown on card)", type: text }
+      - { name: geographic_focus, label: "Geographic focus", type: string }
+      - { name: image, label: "Cover image", type: image, options: { media: images } }
+      - { name: order, label: "Display order", type: number }
+      - { name: body, label: "Full description (project page)", type: rich-text }
 
   - name: insights
-    label: Insights & Articles
+    label: "💡 Insights"
     type: collection
-    folder: src/content/insights
+    path: src/content/insights
+    format: yaml-frontmatter
+    filename: "{fields.title}.md"
+    view:
+      fields: [title, category, date]
+      primary: title
+      sort: [date]
+      default: { sort: date, order: desc }
     fields:
-      - name: title
+      - { name: title, label: "Title", type: string, required: true }
+      - name: category
+        label: "Category"
+        type: select
+        options:
+          values: ["Research Note", "Policy Brief", "Article", "Report", "Blog"]
+      - { name: date, label: "Publication date", type: date }
+      - { name: summary, label: "Summary (shown on card)", type: text }
+      - { name: image, label: "Cover image", type: image, options: { media: images } }
+      - { name: order, label: "Display order (for homepage)", type: number }
+      - { name: body, label: "Full article", type: rich-text }
+
+  - name: events
+    label: "📅 Events"
+    type: collection
+    path: src/content/events
+    format: yaml
+    filename: "{fields.title}.yaml"
+    view:
+      fields: [title, type, date]
+      primary: title
+      sort: [order]
+      default: { sort: order, order: asc }
+    fields:
+      - { name: title, label: "Title", type: string, required: true }
+      - name: type
+        label: "Type"
+        type: select
+        description: "Upcoming events show an RSVP link. Past events don't."
+        options:
+          values:
+            - { label: "Upcoming", value: "upcoming" }
+            - { label: "Past", value: "past" }
+      - { name: date, label: "Date (free text, e.g. 'Sep 15, 2026')", type: string }
+      - { name: location, label: "Location", type: string }
+      - { name: description, label: "Description", type: text }
+      - { name: image, label: "Image", type: image, options: { media: images } }
+      - { name: rsvp_label, label: "RSVP button label", type: string }
+      - name: rsvp_url
+        label: "RSVP link"
         type: string
-      - name: date
-        type: date
-      - name: author
-        type: string
-      - name: cover_image
-        type: image
-      - name: summary
-        type: text
-      - name: body
-        type: rich-text
+        description: "Any link works: mailto:you@example.com, a Google Form, Eventbrite, Luma, etc."
+      - { name: order, label: "Display order", type: number }
