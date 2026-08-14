@@ -1,13 +1,16 @@
 ---
-name: "Susmita Pandey"
-role: "Senior Researcher"
-category: "researcher"
-photo: "/images/people/susmita-pandey.svg"
-short_bio: "Researcher focused on evidence generation and applied development questions."
+name: Susmita Pandey
+role: Senior Researcher
+category: researcher
+photo: /images/uploads/Susmita.jpg
+short_bio: Researcher focused on evidence generation and applied development questions.
 expertise:
-  - "Evidence generation"
-  - "Applied development research"
-linkedin_url: ""
-order: 2
+  - Evidence generation
+  - Applied health research
+  - Mental health
+linkedin_url: https://www.linkedin.com/in/susmita-research/
+order: 3
 ---
-Susmita Pandey is a Senior Researcher at Sakshyam Research Institute, focused on evidence generation and applied development questions. This profile is starter content migrated from the preliminary site — replace it with the approved biography from Pages CMS.
+Susmita is a psychiatric nurse with a PhD in addiction medicine from the Institute of Clinical Medicine, University of Oslo, Norway. Her research aims to understand human thought, mood, and behavior in depth. Her work so far has focused on personality, self-esteem, assertiveness, depression, suicidal behavior, and substance abuse.
+
+Currently, she is working on the psychological aspects of entrepreneurship. This includes uncovering the psychological antecedents of female entrepreneurship, mental wellbeing of entrepreneurs etc. Susmita works at Sakshyam as a senior researcher.
