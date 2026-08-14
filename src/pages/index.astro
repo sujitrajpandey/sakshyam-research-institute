@@ -9,18 +9,21 @@ const homeEntry = await getEntry('home', 'index');
 const home = homeEntry!.data;
 
 /*
- * HERO IMAGE OVERLAY
+ * HERO TEXT OVERLAY
+ *
+ * Controls the transparency of the teal background behind
+ * the hero text only.
  *
  * 0    = completely transparent
- * 0.05 = 5% black
- * 0.10 = 10% black
- * 0.20 = 20% black
- * 0.30 = 30% black
- * 0.50 = 50% black
+ * 0.10 = very subtle
+ * 0.20 = subtle
+ * 0.30 = moderate
+ * 0.40 = strong
+ * 0.50 = very strong
  *
- * Your current image is already dark, so 0 is recommended.
+ * Recommended starting point: 0.35
  */
-const heroOverlayOpacity = 0.10;
+const heroOverlayOpacity = 0.25;
 
 const allEvents = await getCollection('events');
 
@@ -51,74 +54,114 @@ const allInsights = (await getCollection('insights'))
 
   <section class="relative overflow-hidden border-b border-line/70">
 
+    <!-- Full-width hero image -->
     <div class="relative min-h-[620px] md:min-h-[700px] lg:min-h-[760px]">
 
-      <!-- Full-width hero image -->
-      {home.hero.image && (
-        <img
-          src={home.hero.image}
-          alt=""
-          class="absolute inset-0 w-full h-full object-cover object-center"
-          aria-hidden="true"
-        />
-      )}
-
-      <!-- Adjustable image overlay -->
-      <div
-        class="absolute inset-0 bg-black pointer-events-none"
-        style={`opacity: ${heroOverlayOpacity};`}
-        aria-hidden="true"
-      ></div>
+      {
+        home.hero.image && (
+          <img
+            src={home.hero.image}
+            alt=""
+            class="absolute inset-0 w-full h-full object-cover object-center"
+            aria-hidden="true"
+          />
+        )
+      }
 
       <!-- Hero content -->
-      <div class="relative z-10 wrap min-h-[620px] md:min-h-[700px] lg:min-h-[760px] flex items-center">
+      <div
+        class="relative z-10 wrap min-h-[620px] md:min-h-[700px] lg:min-h-[760px] flex items-center"
+      >
 
         <div class="max-w-3xl py-20 md:py-28 lg:py-32">
 
-          {home.hero.eyebrow && (
-            <p
-              class="eyebrow mb-6"
-              style="color: white;"
+          <!-- Teal overlay ONLY behind the text -->
+          <div
+            class="rounded-2xl px-6 py-7 md:px-8 md:py-9"
+            style={`
+              background: linear-gradient(
+                90deg,
+                color-mix(
+                  in srgb,
+                  var(--color-teal) ${heroOverlayOpacity * 100}%,
+                  transparent
+                ),
+                color-mix(
+                  in srgb,
+                  var(--color-teal) ${heroOverlayOpacity * 70}%,
+                  transparent
+                )
+              );
+            `}
+          >
+
+            <!-- Eyebrow -->
+            {
+              home.hero.eyebrow && (
+                <p
+                  class="eyebrow mb-6"
+                  style="color: white;"
+                >
+                  {home.hero.eyebrow}
+                </p>
+              )
+            }
+
+            <!-- Main heading -->
+            <h1
+              class="h1 mb-7 max-w-3xl"
+              style="
+                color: white;
+                text-shadow: 0 2px 12px rgba(0,0,0,0.20);
+              "
             >
-              {home.hero.eyebrow}
+              {home.hero.heading}
+            </h1>
+
+            <!-- Description -->
+            <p
+              class="lede mb-9 max-w-2xl"
+              style="
+                color: rgba(255,255,255,0.94);
+                text-shadow: 0 1px 8px rgba(0,0,0,0.18);
+              "
+            >
+              {home.hero.subheading}
             </p>
-          )}
 
-          <h1
-            class="h1 mb-7 max-w-3xl"
-            style="color: white;"
-          >
-            {home.hero.heading}
-          </h1>
+            <!-- Buttons -->
+            <div class="flex flex-wrap gap-4">
 
-          <p
-            class="lede mb-9 max-w-2xl"
-            style="color: rgba(255,255,255,0.92);"
-          >
-            {home.hero.subheading}
-          </p>
+              {
+                home.hero.primary_button_label && (
+                  <a
+                    href={home.hero.primary_button_url}
+                    class="btn btn-primary"
+                  >
+                    {home.hero.primary_button_label}
+                    <span aria-hidden="true">→</span>
+                  </a>
+                )
+              }
 
-          <div class="flex flex-wrap gap-4">
+              {
+                home.hero.secondary_button_label && (
+                  <a
+                    href={home.hero.secondary_button_url}
+                    class="btn"
+                    style="
+                      background: rgba(255,255,255,0.12);
+                      color: white;
+                      border: 1px solid rgba(255,255,255,0.65);
+                      backdrop-filter: blur(5px);
+                    "
+                  >
+                    {home.hero.secondary_button_label}
+                  </a>
+                )
+              }
 
-            {home.hero.primary_button_label && (
-              <a
-                href={home.hero.primary_button_url}
-                class="btn btn-primary"
-              >
-                {home.hero.primary_button_label}
-                <span aria-hidden="true">→</span>
-              </a>
-            )}
-
-            {home.hero.secondary_button_label && (
-              <a
-                href={home.hero.secondary_button_url}
-                class="btn btn-outline"
-                style="border-color: white; color: white;"
-              >
-                {home.hero.secondary_button_label}
-              </a>
-            )}
+            </div>
 
           </div>
 
@@ -154,7 +197,6 @@ const allInsights = (await getCollection('insights'))
         </p>
 
       </div>
-
 
       <div class="grid sm:grid-cols-3 gap-8">
 
@@ -212,10 +254,8 @@ const allInsights = (await getCollection('insights'))
 
       </div>
 
-
       {
         orderedEvents.length > 0 ? (
-
           <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
             {
@@ -225,13 +265,10 @@ const allInsights = (await getCollection('insights'))
             }
 
           </div>
-
         ) : (
-
           <p class="prose-body">
             More events will be announced soon.
           </p>
-
         )
       }
 
@@ -248,7 +285,9 @@ const allInsights = (await getCollection('insights'))
 
     <div class="wrap">
 
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+      <div
+        class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14"
+      >
 
         <div class="max-w-2xl">
 
@@ -266,7 +305,6 @@ const allInsights = (await getCollection('insights'))
 
         </div>
 
-
         <a
           href="/projects"
           class="btn btn-outline bg-white shrink-0 w-fit"
@@ -275,7 +313,6 @@ const allInsights = (await getCollection('insights'))
         </a>
 
       </div>
-
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
@@ -300,7 +337,9 @@ const allInsights = (await getCollection('insights'))
 
     <div class="wrap">
 
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+      <div
+        class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14"
+      >
 
         <div class="max-w-2xl">
 
@@ -318,7 +357,6 @@ const allInsights = (await getCollection('insights'))
 
         </div>
 
-
         <a
           href="/insights"
           class="btn btn-outline shrink-0 w-fit"
@@ -327,7 +365,6 @@ const allInsights = (await getCollection('insights'))
         </a>
 
       </div>
-
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
@@ -375,7 +412,10 @@ const allInsights = (await getCollection('insights'))
         <a
           href={home.cta.button_url}
           class="btn"
-          style="background-color: var(--color-teal); color: white;"
+          style="
+            background-color: var(--color-teal);
+            color: white;
+          "
         >
           {home.cta.button_label} →
         </a>
