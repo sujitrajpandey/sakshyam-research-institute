@@ -1,5 +1,5 @@
 ---
-name: Lila Nath Sharma
+name: Lila Nath Sharma, PhD
 role: Senior Researcher
 category: researcher
 photo: /images/uploads/Dr.Lilanath_Sharma.jpg
