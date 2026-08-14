@@ -1,0 +1,198 @@
+---
+import { getEntry, getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import EventCard from '../components/EventCard.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import InsightCard from '../components/InsightCard.astro';
+
+const homeEntry = await getEntry('home', 'index');
+const home = homeEntry!.data;
+
+const allEvents = await getCollection('events');
+const upcomingEvents = allEvents
+  .filter((e) => e.data.type === 'upcoming')
+  .sort((a, b) => a.data.order - b.data.order);
+const pastEvents = allEvents
+  .filter((e) => e.data.type === 'past')
+  .sort((a, b) => a.data.order - b.data.order);
+const orderedEvents = [...upcomingEvents, ...pastEvents].slice(0, 4);
+
+const allProjects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order).slice(0, 3);
+const allInsights = (await getCollection('insights')).sort((a, b) => a.data.order - b.data.order).slice(0, 3);
+---
+
+<Layout title="Home">
+  <!-- Hero -->
+  <section class="relative overflow-hidden border-b border-line/70">
+    <div class="wrap py-16 md:py-24 lg:py-28">
+      <div class="grid lg:grid-cols-[1.02fr_0.98fr] gap-12 lg:gap-16 items-center">
+        <div class="relative z-10 max-w-2xl">
+          {home.hero.eyebrow && <p class="eyebrow mb-6">{home.hero.eyebrow}</p>}
+          <h1 class="h1 mb-7 max-w-3xl">{home.hero.heading}</h1>
+          <p class="lede mb-9 max-w-xl">{home.hero.subheading}</p>
+          <div class="flex flex-wrap gap-4">
+            <a href={home.hero.primary_button_url} class="btn btn-primary">
+              {home.hero.primary_button_label} <span aria-hidden="true">→</span>
+            </a>
+            <a href={home.hero.secondary_button_url} class="btn btn-outline">
+              {home.hero.secondary_button_label}
+            </a>
+          </div>
+        </div>
+
+        <div class="relative min-h-[360px] md:min-h-[430px] lg:min-h-[500px] flex items-center" aria-hidden="true">
+          <div class="hero-graphic absolute inset-0">
+            <svg viewBox="0 0 760 560" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg" role="presentation">
+              <defs>
+                <linearGradient id="evidence-gradient" x1="60" y1="120" x2="620" y2="280" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="var(--color-teal-deep)" />
+                  <stop offset="1" stop-color="var(--color-teal-mid)" />
+                </linearGradient>
+                <linearGradient id="implementation-gradient" x1="60" y1="280" x2="620" y2="280" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="var(--color-teal)" />
+                  <stop offset="1" stop-color="var(--color-teal-mid)" />
+                </linearGradient>
+                <linearGradient id="inclusion-gradient" x1="60" y1="440" x2="620" y2="280" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="var(--color-teal-light)" />
+                  <stop offset="1" stop-color="var(--color-teal-mid)" />
+                </linearGradient>
+                <filter id="soft-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#36454F" flood-opacity=".12" />
+                </filter>
+              </defs>
+
+              <path d="M74 120 C 210 120, 290 145, 380 220 S 505 280, 610 280" stroke="url(#evidence-gradient)" stroke-width="48" stroke-linecap="round" opacity=".96"/>
+              <path d="M74 280 C 230 280, 340 280, 610 280" stroke="url(#implementation-gradient)" stroke-width="48" stroke-linecap="round" opacity=".96"/>
+              <path d="M74 440 C 210 440, 290 415, 380 340 S 505 280, 610 280" stroke="url(#inclusion-gradient)" stroke-width="48" stroke-linecap="round" opacity=".96"/>
+
+              <path d="M74 120 C 210 120, 290 145, 380 220 S 505 280, 610 280" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 10" opacity=".7"/>
+              <path d="M74 280 C 230 280, 340 280, 610 280" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 10" opacity=".7"/>
+              <path d="M74 440 C 210 440, 290 415, 380 340 S 505 280, 610 280" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 10" opacity=".7"/>
+
+              <g filter="url(#soft-shadow)">
+                <circle cx="74" cy="120" r="42" fill="var(--color-bg)" stroke="var(--color-teal-deep)" stroke-width="2"/>
+                <circle cx="74" cy="280" r="42" fill="var(--color-bg)" stroke="var(--color-teal)" stroke-width="2"/>
+                <circle cx="74" cy="440" r="42" fill="var(--color-bg)" stroke="var(--color-teal-mid)" stroke-width="2"/>
+              </g>
+
+              <g fill="var(--color-ink)" text-anchor="middle" font-family="var(--font-body), sans-serif" font-size="17" font-weight="700">
+                <text x="74" y="126">Evidence</text>
+                <text x="74" y="286">Implementation</text>
+                <text x="74" y="446">Inclusion</text>
+              </g>
+
+              <circle cx="610" cy="280" r="86" fill="var(--color-bg)" stroke="var(--color-teal)" stroke-width="2.5" filter="url(#soft-shadow)"/>
+              <circle cx="610" cy="280" r="68" fill="var(--color-bg-soft)" stroke="var(--color-line)" stroke-width="1"/>
+              <g text-anchor="middle" font-family="var(--font-body), sans-serif">
+                <text x="610" y="268" fill="var(--color-teal-deep)" font-size="13" font-weight="700" letter-spacing="2">TOWARD</text>
+                <text x="610" y="292" fill="var(--color-ink)" font-size="22" font-weight="700">Inclusive</text>
+                <text x="610" y="318" fill="var(--color-ink)" font-size="22" font-weight="700">Impact</text>
+              </g>
+
+              <circle cx="680" cy="132" r="4" fill="var(--color-teal-mid)" opacity=".7"/>
+              <circle cx="704" cy="158" r="7" fill="var(--color-teal-light)" opacity=".8"/>
+              <circle cx="690" cy="428" r="5" fill="var(--color-teal)" opacity=".7"/>
+              <circle cx="718" cy="402" r="3" fill="var(--color-teal-mid)" opacity=".8"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What we do -->
+  <section class="section-soft py-20 md:py-28">
+    <div class="wrap">
+      <div class="max-w-2xl mb-14">
+        <p class="eyebrow mb-4">{home.what_we_do.eyebrow}</p>
+        <h2 class="h2 mb-5">{home.what_we_do.heading}</h2>
+        <p class="lede">{home.what_we_do.description}</p>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-8">
+        {
+          home.what_we_do.pillars.map((pillar) => (
+            <div class="card p-7 bg-white">
+              <span class="font-heading text-3xl block mb-4" style="color: var(--color-teal-mid);">
+                {pillar.number}
+              </span>
+              <h3 class="h4 mb-2">{pillar.title}</h3>
+              <p class="prose-body text-[0.95rem]">{pillar.description}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Events -->
+  <section class="py-20 md:py-28">
+    <div class="wrap">
+      <div class="max-w-2xl mb-14">
+        <p class="eyebrow mb-4">{home.events_section.eyebrow}</p>
+        <h2 class="h2 mb-5">{home.events_section.heading}</h2>
+        <p class="lede">{home.events_section.description}</p>
+      </div>
+      {
+        orderedEvents.length > 0 ? (
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {orderedEvents.map((event) => <EventCard event={event.data} />)}
+          </div>
+        ) : (
+          <p class="prose-body">More events will be announced soon.</p>
+        )
+      }
+    </div>
+  </section>
+
+  <!-- Selected projects -->
+  <section class="section-soft py-20 md:py-28">
+    <div class="wrap">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+        <div class="max-w-2xl">
+          <p class="eyebrow mb-4">{home.projects_section.eyebrow}</p>
+          <h2 class="h2 mb-5">{home.projects_section.heading}</h2>
+          <p class="lede">{home.projects_section.description}</p>
+        </div>
+        <a href="/projects" class="btn btn-outline bg-white shrink-0 w-fit">
+          {home.projects_section.button_label} →
+        </a>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {allProjects.map((project) => <ProjectCard project={project} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest insights -->
+  <section class="py-20 md:py-28">
+    <div class="wrap">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+        <div class="max-w-2xl">
+          <p class="eyebrow mb-4">{home.insights_section.eyebrow}</p>
+          <h2 class="h2 mb-5">{home.insights_section.heading}</h2>
+          <p class="lede">{home.insights_section.description}</p>
+        </div>
+        <a href="/insights" class="btn btn-outline shrink-0 w-fit">
+          {home.insights_section.button_label} →
+        </a>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {allInsights.map((insight) => <InsightCard insight={insight} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 md:py-24">
+    <div class="wrap">
+      <div class="rounded-3xl px-8 py-16 md:px-16 md:py-20 text-center" style="background-color: var(--color-ink);">
+        <p class="eyebrow mb-5" style="color: var(--color-teal-light);">{home.cta.eyebrow}</p>
+        <h2 class="h2 mb-6 text-white">{home.cta.heading}</h2>
+        <p class="lede mb-9 max-w-xl mx-auto text-white/70">{home.cta.description}</p>
+        <a href={home.cta.button_url} class="btn" style="background-color: var(--color-teal); color: white;">
+          {home.cta.button_label} →
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
