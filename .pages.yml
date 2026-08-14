@@ -1,9 +1,6 @@
 media:
-  - name: images
-    label: "Images"
-    input: public/images/uploads
-    output: /images/uploads
-    categories: [image]
+  input: public/images
+  output: /images
 
 content:
   - name: settings
@@ -13,9 +10,9 @@ content:
     fields:
       - { name: site_title, label: "Site title", type: string, required: true }
       - { name: tagline, label: "Tagline", type: string }
-      - { name: logo, label: "Logo (full logo, used in header/footer)", type: image, required: true, options: { media: images } }
-      - { name: logo_mark, label: "Logo mark (icon only, used on dark footer)", type: image, options: { media: images } }
-      - { name: favicon, label: "Favicon", type: image, options: { media: images } }
+      - { name: logo, label: "Logo (full logo, used in header/footer)", type: image, required: true }
+      - { name: logo_mark, label: "Logo mark (icon only, used on dark footer)", type: image }
+      - { name: favicon, label: "Favicon", type: image }
       - { name: email, label: "Contact email", type: string }
       - { name: linkedin_url, label: "LinkedIn URL", type: string }
       - { name: location_text, label: "Location text (footer)", type: string }
@@ -79,6 +76,7 @@ content:
           - { name: eyebrow, label: "Small label above heading", type: string }
           - { name: heading, label: "Heading", type: string, required: true }
           - { name: subheading, label: "Subheading", type: text }
+          - { name: image, label: "Hero image", type: image }
           - { name: primary_button_label, label: "Primary button label", type: string }
           - { name: primary_button_url, label: "Primary button link", type: string }
           - { name: secondary_button_label, label: "Secondary button label", type: string }
@@ -188,15 +186,14 @@ content:
     label: "👥 People"
     type: collection
     path: src/content/people
-    format: yaml
-    filename: "{fields.slug}.yaml"
+    format: yaml-frontmatter
+    filename: "{fields.name}.md"
     view:
       fields: [photo, name, role, category]
       primary: name
       sort: [category, order]
       default: { sort: order, order: asc }
     fields:
-      - { name: slug, label: "URL slug", type: string, required: true }
       - { name: name, label: "Full name", type: string, required: true }
       - { name: role, label: "Role / title", type: string }
       - name: category
@@ -209,7 +206,7 @@ content:
             - { label: "Management", value: "management" }
             - { label: "Advisor", value: "advisor" }
         required: true
-      - { name: photo, label: "Photo", type: image, options: { media: images } }
+      - { name: photo, label: "Photo", type: image }
       - { name: short_bio, label: "Short bio (shown on card)", type: text }
       - { name: expertise, label: "Areas of expertise", type: string, list: true }
       - { name: linkedin_url, label: "LinkedIn URL", type: string }
@@ -220,15 +217,14 @@ content:
     label: "📊 Projects"
     type: collection
     path: src/content/projects
-    format: yaml
-    filename: "{fields.slug}.yaml"
+    format: yaml-frontmatter
+    filename: "{fields.title}.md"
     view:
       fields: [title, status, year]
       primary: title
       sort: [order]
       default: { sort: order, order: asc }
     fields:
-      - { name: slug, label: "URL slug", type: string, required: true }
       - { name: title, label: "Title", type: string, required: true }
       - name: status
         label: "Status"
@@ -240,7 +236,7 @@ content:
       - { name: year, label: "Year", type: string }
       - { name: summary, label: "Summary (shown on card)", type: text }
       - { name: geographic_focus, label: "Geographic focus", type: string }
-      - { name: image, label: "Cover image", type: image, options: { media: images } }
+      - { name: image, label: "Cover image", type: image }
       - { name: order, label: "Display order", type: number }
       - { name: body, label: "Full description (project page)", type: rich-text }
 
@@ -248,15 +244,14 @@ content:
     label: "💡 Insights"
     type: collection
     path: src/content/insights
-    format: yaml
-    filename: "{fields.slug}.yaml"
+    format: yaml-frontmatter
+    filename: "{fields.title}.md"
     view:
       fields: [title, category, date]
       primary: title
       sort: [date]
       default: { sort: date, order: desc }
     fields:
-      - { name: slug, label: "URL slug", type: string, required: true }
       - { name: title, label: "Title", type: string, required: true }
       - name: category
         label: "Category"
@@ -265,7 +260,7 @@ content:
           values: ["Research Note", "Policy Brief", "Article", "Report", "Blog"]
       - { name: date, label: "Publication date", type: date }
       - { name: summary, label: "Summary (shown on card)", type: text }
-      - { name: image, label: "Cover image", type: image, options: { media: images } }
+      - { name: image, label: "Cover image", type: image }
       - { name: order, label: "Display order (for homepage)", type: number }
       - { name: body, label: "Full article", type: rich-text }
 
@@ -293,7 +288,7 @@ content:
       - { name: date, label: "Date (free text, e.g. 'Sep 15, 2026')", type: string }
       - { name: location, label: "Location", type: string }
       - { name: description, label: "Description", type: text }
-      - { name: image, label: "Image", type: image, options: { media: images } }
+      - { name: image, label: "Image", type: image }
       - { name: rsvp_label, label: "RSVP button label", type: string }
       - name: rsvp_url
         label: "RSVP link"
