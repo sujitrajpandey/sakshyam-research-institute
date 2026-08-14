@@ -9,13 +9,13 @@ const homeEntry = await getEntry('home', 'index');
 const home = homeEntry!.data;
 
 /*
- * HERO WHITE OVERLAY
+ * HERO WHITE OVERLAY OPACITY
  *
- * 0    = transparent
+ * 0    = completely transparent
  * 0.10 = very subtle
  * 0.20 = light
  * 0.30 = moderate
- * 0.35 = current setting
+ * 0.35 = current
  * 0.40 = stronger
  * 0.50 = very strong
  */
@@ -69,12 +69,18 @@ const allInsights = (await getCollection('insights'))
         class="relative z-10 wrap min-h-[620px] md:min-h-[700px] lg:min-h-[760px] flex items-center"
       >
 
-        <!-- Reduced vertical padding -->
+        <!-- Hero text area -->
         <div class="max-w-3xl py-15 md:py-21 lg:py-24">
 
-          <!-- White overlay behind hero text -->
+          <!--
+            FIXED-WIDTH WHITE OVERLAY
+
+            The overlay no longer sizes itself according
+            to the heading. Its width remains constant while
+            the heading is being typed.
+          -->
           <div
-            class="rounded-2xl px-6 py-7 md:px-8 md:py-9"
+            class="hero-text-panel rounded-2xl px-6 py-7 md:px-8 md:py-9"
             style={`
               background: linear-gradient(
                 90deg,
@@ -96,8 +102,9 @@ const allInsights = (await getCollection('insights'))
               )
             }
 
+
             <!-- ================================================= -->
-            <!-- ANIMATED HERO HEADING -->
+            <!-- HERO HEADING -->
             <!-- ================================================= -->
 
             <div class="hero-heading-container">
@@ -438,29 +445,30 @@ const allInsights = (await getCollection('insights'))
       const originalText = heroHeading.textContent?.trim() || '';
 
       /*
-       * Save the final heading for accessibility.
+       * Accessibility:
+       * screen readers still receive the complete heading.
        */
       heroHeading.setAttribute('aria-label', originalText);
 
+
       /*
-       * Measure the heading BEFORE removing its text.
-       *
-       * This reserves the exact height required by the
-       * completed heading, preventing the description and
-       * buttons below from moving during the animation.
+       * Reserve the final height of the heading BEFORE
+       * removing its text.
        */
       const headingContainer = heroHeading.parentElement;
 
       if (headingContainer) {
 
-        const finalHeight = heroHeading.getBoundingClientRect().height;
+        const finalHeight =
+          heroHeading.getBoundingClientRect().height;
 
-        headingContainer.style.height = `${finalHeight}px`;
+        headingContainer.style.height =
+          `${finalHeight}px`;
       }
 
 
       /*
-       * Clear the visible heading.
+       * Remove the original visible text.
        */
       heroHeading.textContent = '';
 
@@ -470,14 +478,15 @@ const allInsights = (await getCollection('insights'))
        */
       const cursor = document.createElement('span');
 
-      cursor.setAttribute('aria-hidden', 'true');
+      cursor.setAttribute(
+        'aria-hidden',
+        'true'
+      );
 
-      cursor.className = 'typing-cursor';
+      cursor.className =
+        'typing-cursor';
 
 
-      /*
-       * Add cursor immediately.
-       */
       heroHeading.appendChild(cursor);
 
 
@@ -485,10 +494,7 @@ const allInsights = (await getCollection('insights'))
 
 
       /*
-       * 110 milliseconds per character.
-       *
-       * This is intentionally slower than the previous
-       * 45ms setting and should feel more human.
+       * Human-like typing speed.
        */
       const typingSpeed = 100;
 
@@ -514,11 +520,14 @@ const allInsights = (await getCollection('insights'))
         } else {
 
           /*
-           * Keep cursor blinking briefly after typing ends.
+           * Keep cursor blinking briefly after
+           * typing has finished.
            */
           window.setTimeout(() => {
 
-            cursor.classList.add('typing-cursor-fade');
+            cursor.classList.add(
+              'typing-cursor-fade'
+            );
 
             window.setTimeout(() => {
 
@@ -534,7 +543,7 @@ const allInsights = (await getCollection('insights'))
 
 
       /*
-       * Small delay before typing starts.
+       * Short delay before typing begins.
        */
       window.setTimeout(
         typeNextCharacter,
@@ -546,15 +555,74 @@ const allInsights = (await getCollection('insights'))
 
 
   <!-- ========================================================= -->
-  <!-- TYPEWRITER STYLES -->
+  <!-- HERO / TYPEWRITER STYLES -->
   <!-- ========================================================= -->
 
   <style>
 
     /*
-     * The container reserves the final heading height.
-     * Therefore everything underneath remains stationary
-     * while the heading is being typed.
+     * FIX 1:
+     *
+     * Fixed width for the white panel.
+     *
+     * The panel no longer expands as the heading
+     * characters are progressively added.
+     */
+
+    .hero-text-panel {
+      width: 100%;
+      max-width: 760px;
+    }
+
+
+    /*
+     * Desktop:
+     * Keep the overlay at a stable width.
+     */
+    @media (min-width: 1024px) {
+
+      .hero-text-panel {
+        width: 760px;
+      }
+
+    }
+
+
+    /*
+     * Medium screens.
+     */
+    @media (min-width: 768px) and (max-width: 1023px) {
+
+      .hero-text-panel {
+        width: 680px;
+        max-width: 100%;
+      }
+
+    }
+
+
+    /*
+     * Mobile:
+     * Use the full available width with the
+     * same fixed relationship to the viewport.
+     */
+    @media (max-width: 767px) {
+
+      .hero-text-panel {
+        width: 100%;
+      }
+
+    }
+
+
+    /*
+     * FIX 2:
+     *
+     * Reserve the completed heading's height.
+     *
+     * This prevents the subheading and buttons
+     * from moving vertically while the heading
+     * is being typed.
      */
     .hero-heading-container {
       margin-bottom: 1.75rem;
@@ -563,7 +631,7 @@ const allInsights = (await getCollection('insights'))
 
 
     /*
-     * Blinking cursor.
+     * Typing cursor.
      */
     .typing-cursor {
       display: inline-block;
@@ -587,9 +655,10 @@ const allInsights = (await getCollection('insights'))
 
 
     /*
-     * Fade cursor after typing is complete.
+     * Fade cursor after typing.
      */
     .typing-cursor-fade {
+
       opacity: 0;
 
       transition:
@@ -602,7 +671,7 @@ const allInsights = (await getCollection('insights'))
 
 
     /*
-     * Cursor blink animation.
+     * Cursor blink.
      */
     @keyframes typing-blink {
 
@@ -620,8 +689,9 @@ const allInsights = (await getCollection('insights'))
 
 
     /*
-     * Respect users who have reduced-motion
-     * accessibility settings.
+     * Accessibility:
+     * Disable cursor animation for users
+     * who prefer reduced motion.
      */
     @media (prefers-reduced-motion: reduce) {
 
