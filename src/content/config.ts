@@ -1,19 +1,10 @@
 import { z, defineCollection } from 'astro:content';
 
-const settingsCollection = defineCollection({
-  type: 'data',
-  schema: z.object({
-    site_title: z.string(),
-    logo: z.string(), // Will map to Full Logo.png
-    favicon: z.string(), // Will map to favicon.png
-    base_font_size: z.string(),
-  }),
-});
-
 const pagesCollection = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
+    hero_image: z.string().optional(),
   }),
 });
 
@@ -22,7 +13,7 @@ const peopleCollection = defineCollection({
   schema: z.object({
     name: z.string(),
     category: z.enum(['Researchers', 'Management', 'Advisors']),
-    photo: z.string(),
+    photo: z.string().optional(),
   }),
 });
 
@@ -31,14 +22,13 @@ const eventsCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.date(),
-    image: z.string(),
+    image: z.string().optional(),
     status: z.enum(['Upcoming', 'Past']),
     rsvp_link: z.string().optional(),
   }),
 });
 
 export const collections = {
-  'settings': settingsCollection,
   'pages': pagesCollection,
   'people': peopleCollection,
   'events': eventsCollection,
