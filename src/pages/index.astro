@@ -31,10 +31,14 @@ const allInsights = (await getCollection('insights'))
 
 <Layout title="Home">
 
-  <!-- Hero -->
+  <!-- ========================================================= -->
+  <!-- HERO -->
+  <!-- ========================================================= -->
+
   <section class="relative overflow-hidden border-b border-line/70">
     <div class="wrap pt-6 pb-16 md:pt-8 md:pb-20 lg:pt-10 lg:pb-24">
-      <div class="grid lg:grid-cols-[1.02fr_0.98fr] gap-12 lg:gap-16 items-center">
+
+      <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-12 items-center">
 
         <!-- Hero text -->
         <div class="relative z-10 max-w-2xl">
@@ -54,6 +58,7 @@ const allInsights = (await getCollection('insights'))
           </p>
 
           <div class="flex flex-wrap gap-4">
+
             <a
               href={home.hero.primary_button_url}
               class="btn btn-primary"
@@ -68,27 +73,32 @@ const allInsights = (await getCollection('insights'))
             >
               {home.hero.secondary_button_label}
             </a>
+
           </div>
 
         </div>
 
-        <!-- Hero visual -->
-        <div class="relative min-h-[360px] md:min-h-[430px] lg:min-h-[500px] flex items-center">
+
+        <!-- Hero image / graphic -->
+        <div class="relative min-h-[420px] md:min-h-[520px] lg:min-h-[620px] flex items-center">
 
           {
             home.hero.image ? (
               <div class="w-full h-full overflow-hidden rounded-3xl">
+
                 <img
                   src={home.hero.image}
                   alt={home.hero.heading || "Sakshyam Research Institute"}
-                  class="w-full h-full object-cover"
+                  class="w-full h-full object-contain"
                 />
+
               </div>
             ) : (
               <div
                 class="hero-graphic absolute inset-0"
                 aria-hidden="true"
               >
+
                 <svg
                   viewBox="0 0 760 560"
                   class="w-full h-full"
@@ -162,7 +172,9 @@ const allInsights = (await getCollection('insights'))
 
                   </defs>
 
+
                   <!-- Evidence ribbon -->
+
                   <path
                     d="M74 120 C 210 120, 290 145, 380 220 S 505 280, 610 280"
                     stroke="url(#evidence-gradient)"
@@ -171,7 +183,9 @@ const allInsights = (await getCollection('insights'))
                     opacity=".96"
                   />
 
+
                   <!-- Implementation ribbon -->
+
                   <path
                     d="M74 280 C 230 280, 340 280, 610 280"
                     stroke="url(#implementation-gradient)"
@@ -180,7 +194,9 @@ const allInsights = (await getCollection('insights'))
                     opacity=".96"
                   />
 
+
                   <!-- Inclusion ribbon -->
+
                   <path
                     d="M74 440 C 210 440, 290 415, 380 340 S 505 280, 610 280"
                     stroke="url(#inclusion-gradient)"
@@ -189,7 +205,9 @@ const allInsights = (await getCollection('insights'))
                     opacity=".96"
                   />
 
-                  <!-- Evidence dotted line -->
+
+                  <!-- Dotted detail lines -->
+
                   <path
                     d="M74 120 C 210 120, 290 145, 380 220 S 505 280, 610 280"
                     stroke="white"
@@ -199,7 +217,6 @@ const allInsights = (await getCollection('insights'))
                     opacity=".7"
                   />
 
-                  <!-- Implementation dotted line -->
                   <path
                     d="M74 280 C 230 280, 340 280, 610 280"
                     stroke="white"
@@ -209,7 +226,6 @@ const allInsights = (await getCollection('insights'))
                     opacity=".7"
                   />
 
-                  <!-- Inclusion dotted line -->
                   <path
                     d="M74 440 C 210 440, 290 415, 380 340 S 505 280, 610 280"
                     stroke="white"
@@ -219,7 +235,9 @@ const allInsights = (await getCollection('insights'))
                     opacity=".7"
                   />
 
+
                   <!-- Pillar circles -->
+
                   <g filter="url(#soft-shadow)">
 
                     <circle
@@ -251,7 +269,9 @@ const allInsights = (await getCollection('insights'))
 
                   </g>
 
+
                   <!-- Pillar labels -->
+
                   <g
                     fill="var(--color-ink)"
                     text-anchor="middle"
@@ -259,12 +279,24 @@ const allInsights = (await getCollection('insights'))
                     font-size="17"
                     font-weight="700"
                   >
-                    <text x="74" y="126">Evidence</text>
-                    <text x="74" y="286">Implementation</text>
-                    <text x="74" y="446">Inclusion</text>
+
+                    <text x="74" y="126">
+                      Evidence
+                    </text>
+
+                    <text x="74" y="286">
+                      Implementation
+                    </text>
+
+                    <text x="74" y="446">
+                      Inclusion
+                    </text>
+
                   </g>
 
-                  <!-- Inclusive Impact circle -->
+
+                  <!-- Inclusive Impact -->
+
                   <circle
                     cx="610"
                     cy="280"
@@ -288,6 +320,7 @@ const allInsights = (await getCollection('insights'))
                     text-anchor="middle"
                     font-family="var(--font-body), sans-serif"
                   >
+
                     <text
                       x="610"
                       y="268"
@@ -318,9 +351,12 @@ const allInsights = (await getCollection('insights'))
                     >
                       Impact
                     </text>
+
                   </g>
 
+
                   <!-- Decorative dots -->
+
                   <circle
                     cx="680"
                     cy="132"
@@ -354,21 +390,27 @@ const allInsights = (await getCollection('insights'))
                   />
 
                 </svg>
+
               </div>
             )
           }
 
         </div>
+
       </div>
     </div>
   </section>
 
 
-  <!-- What we do -->
+  <!-- ========================================================= -->
+  <!-- WHAT WE DO -->
+  <!-- ========================================================= -->
+
   <section class="section-soft py-20 md:py-28">
     <div class="wrap">
 
       <div class="max-w-2xl mb-14">
+
         <p class="eyebrow mb-4">
           {home.what_we_do.eyebrow}
         </p>
@@ -380,9 +422,12 @@ const allInsights = (await getCollection('insights'))
         <p class="lede">
           {home.what_we_do.description}
         </p>
+
       </div>
 
+
       <div class="grid sm:grid-cols-3 gap-8">
+
         {
           home.what_we_do.pillars.map((pillar) => (
             <div class="card p-7 bg-white">
@@ -405,17 +450,22 @@ const allInsights = (await getCollection('insights'))
             </div>
           ))
         }
+
       </div>
 
     </div>
   </section>
 
 
-  <!-- Events -->
+  <!-- ========================================================= -->
+  <!-- EVENTS -->
+  <!-- ========================================================= -->
+
   <section class="py-20 md:py-28">
     <div class="wrap">
 
       <div class="max-w-2xl mb-14">
+
         <p class="eyebrow mb-4">
           {home.events_section.eyebrow}
         </p>
@@ -427,14 +477,18 @@ const allInsights = (await getCollection('insights'))
         <p class="lede">
           {home.events_section.description}
         </p>
+
       </div>
+
 
       {
         orderedEvents.length > 0 ? (
-          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
             {orderedEvents.map((event) => (
               <EventCard event={event.data} />
             ))}
+
           </div>
         ) : (
           <p class="prose-body">
@@ -447,13 +501,17 @@ const allInsights = (await getCollection('insights'))
   </section>
 
 
-  <!-- Selected projects -->
+  <!-- ========================================================= -->
+  <!-- SELECTED PROJECTS -->
+  <!-- ========================================================= -->
+
   <section class="section-soft py-20 md:py-28">
     <div class="wrap">
 
       <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
 
         <div class="max-w-2xl">
+
           <p class="eyebrow mb-4">
             {home.projects_section.eyebrow}
           </p>
@@ -465,7 +523,9 @@ const allInsights = (await getCollection('insights'))
           <p class="lede">
             {home.projects_section.description}
           </p>
+
         </div>
+
 
         <a
           href="/projects"
@@ -476,19 +536,25 @@ const allInsights = (await getCollection('insights'))
 
       </div>
 
+
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
         {
           allProjects.map((project) => (
             <ProjectCard project={project} />
           ))
         }
+
       </div>
 
     </div>
   </section>
 
 
-  <!-- Latest insights -->
+  <!-- ========================================================= -->
+  <!-- LATEST INSIGHTS -->
+  <!-- ========================================================= -->
+
   <section class="py-20 md:py-28">
     <div class="wrap">
 
@@ -510,6 +576,7 @@ const allInsights = (await getCollection('insights'))
 
         </div>
 
+
         <a
           href="/insights"
           class="btn btn-outline shrink-0 w-fit"
@@ -519,19 +586,25 @@ const allInsights = (await getCollection('insights'))
 
       </div>
 
+
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
         {
           allInsights.map((insight) => (
             <InsightCard insight={insight} />
           ))
         }
+
       </div>
 
     </div>
   </section>
 
 
+  <!-- ========================================================= -->
   <!-- CTA -->
+  <!-- ========================================================= -->
+
   <section class="py-20 md:py-24">
     <div class="wrap">
 
