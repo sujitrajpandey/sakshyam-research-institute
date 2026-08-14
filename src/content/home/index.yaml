@@ -1,9 +1,9 @@
 hero:
-  eyebrow: Independent research institute
+  eyebrow: Independent research institute & think tank
   heading: Evidence for decisions. Implementation for results. Inclusion for impact.
-  subheading: Sakshyam Research Institute connects rigorous evidence with practical
-    implementation to help institutions make better decisions and create more inclusive
-    outcomes.
+  subheading: Sakshyam Research Institute connects rigorous evidence with
+    practical implementation to help institutions make better decisions and
+    create more inclusive outcomes.
   primary_button_label: Explore our research
   primary_button_url: /projects
   secondary_button_label: Work with us
@@ -11,21 +11,21 @@ hero:
 what_we_do:
   eyebrow: Our approach
   heading: Three principles. One purpose.
-  description: We believe research matters when it is rigorous, usable and responsive
-    to the people and institutions it is meant to serve.
+  description: We believe research matters when it is rigorous, usable and
+    responsive to the people and institutions it is meant to serve.
   pillars:
-  - number: '01'
-    title: Evidence
-    description: Rigorous research, data and analysis that make complex questions
-      clearer and decisions better informed.
-  - number: '02'
-    title: Implementation
-    description: Research designed with practice in mind, translating evidence into
-      strategies, systems and action.
-  - number: '03'
-    title: Inclusion
-    description: A deliberate focus on whose voices, constraints and opportunities
-      shape the outcomes of change.
+    - number: "01"
+      title: Evidence
+      description: Rigorous research, data and analysis that make complex questions
+        clearer and decisions better informed.
+    - number: "02"
+      title: Implementation
+      description: Research designed with practice in mind, translating evidence into
+        strategies, systems and action.
+    - number: "03"
+      title: Inclusion
+      description: A deliberate focus on whose voices, constraints and opportunities
+        shape the outcomes of change.
 events_section:
   eyebrow: Events
   heading: Ideas in conversation.
@@ -33,8 +33,8 @@ events_section:
 projects_section:
   eyebrow: Selected work
   heading: Research with a purpose.
-  description: Selected assignments and research that turn difficult questions into
-    usable evidence.
+  description: Selected assignments and research that turn difficult questions
+    into usable evidence.
   button_label: View projects
 insights_section:
   eyebrow: Latest insights
@@ -44,7 +44,7 @@ insights_section:
 cta:
   eyebrow: Collaborate with us
   heading: Have a question that needs evidence?
-  description: Tell us what you are trying to understand, improve or change. We can
-    help shape the research around the decision.
+  description: Tell us what you are trying to understand, improve or change. We
+    can help shape the research around the decision.
   button_label: Start a conversation
   button_url: /about#contact
