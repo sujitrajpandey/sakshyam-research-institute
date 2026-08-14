@@ -11,14 +11,17 @@ const home = homeEntry!.data;
 /*
  * HERO TEXT PANEL
  *
- * Controls the transparency of the teal background
- * behind the hero text.
+ * Controls the opacity of the white background behind
+ * the hero text.
  *
- * 0    = transparent
+ * 0    = completely transparent
  * 0.10 = very subtle
- * 0.15 = subtle
- * 0.20 = moderate
- * 0.30 = stronger
+ * 0.20 = light
+ * 0.30 = moderate
+ * 0.40 = strong
+ * 0.50 = very strong
+ *
+ * Recommended starting point: 0.35
  */
 const heroOverlayOpacity = 0.35;
 
@@ -70,29 +73,17 @@ const allInsights = (await getCollection('insights'))
         class="relative z-10 wrap min-h-[620px] md:min-h-[700px] lg:min-h-[760px] flex items-center"
       >
 
-        <!--
-          Reduced vertical padding by approximately 25%.
-          Previous: py-20 md:py-28 lg:py-32
-          Now:      py-15 md:py-21 lg:py-24
-        -->
+        <!-- Reduced vertical padding to decrease whitespace -->
         <div class="max-w-3xl py-15 md:py-21 lg:py-24">
 
-          <!-- Teal panel behind hero text -->
+          <!-- White overlay ONLY behind hero text -->
           <div
             class="rounded-2xl px-6 py-7 md:px-8 md:py-9"
             style={`
               background: linear-gradient(
                 90deg,
-                color-mix(
-                  in srgb,
-                  var(--color-teal) ${heroOverlayOpacity * 100}%,
-                  transparent
-                ),
-                color-mix(
-                  in srgb,
-                  var(--color-teal) ${heroOverlayOpacity * 70}%,
-                  transparent
-                )
+                rgba(255,255,255,${heroOverlayOpacity}),
+                rgba(255,255,255,${heroOverlayOpacity * 0.70})
               );
             `}
           >
@@ -146,7 +137,7 @@ const allInsights = (await getCollection('insights'))
                     href={home.hero.secondary_button_url}
                     class="btn"
                     style="
-                      background: rgba(255,255,255,0.40);
+                      background: rgba(255,255,255,0.55);
                       color: var(--color-ink);
                       border: 1px solid var(--color-ink);
                       backdrop-filter: blur(5px);
@@ -193,6 +184,7 @@ const allInsights = (await getCollection('insights'))
         </p>
 
       </div>
+
 
       <div class="grid sm:grid-cols-3 gap-8">
 
@@ -250,6 +242,7 @@ const allInsights = (await getCollection('insights'))
 
       </div>
 
+
       {
         orderedEvents.length > 0 ? (
           <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -301,6 +294,7 @@ const allInsights = (await getCollection('insights'))
 
         </div>
 
+
         <a
           href="/projects"
           class="btn btn-outline bg-white shrink-0 w-fit"
@@ -309,6 +303,7 @@ const allInsights = (await getCollection('insights'))
         </a>
 
       </div>
+
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
@@ -353,6 +348,7 @@ const allInsights = (await getCollection('insights'))
 
         </div>
 
+
         <a
           href="/insights"
           class="btn btn-outline shrink-0 w-fit"
@@ -361,6 +357,7 @@ const allInsights = (await getCollection('insights'))
         </a>
 
       </div>
+
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
