@@ -1,71 +1,53 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import PersonCard from '../../components/PersonCard.astro';
 
 const allPeople = await getCollection('people');
-const sortByOrder = (a: any, b: any) => a.data.order - b.data.order;
 
-const researchers = allPeople.filter((p) => p.data.category === 'researcher').sort(sortByOrder);
-const management = allPeople.filter((p) => p.data.category === 'management').sort(sortByOrder);
-const advisors = allPeople.filter((p) => p.data.category === 'advisor').sort(sortByOrder);
+const researchers = allPeople.filter(person => person.data.category === 'Researchers');
+const management = allPeople.filter(person => person.data.category === 'Management');
+const advisors = allPeople.filter(person => person.data.category === 'Advisors');
 
-const groups = [
-  {
-    key: 'researchers',
-    eyebrow: 'Researchers',
-    heading: 'Research & evidence.',
-    description: 'Researchers who design, conduct and interpret rigorous work.',
-    people: researchers,
-    emptyText: 'Researcher profiles will be added soon.',
-  },
-  {
-    key: 'management',
-    eyebrow: 'Management',
-    heading: 'Making the work happen.',
-    description: 'The people responsible for coordination, operations and delivery.',
-    people: management,
-    emptyText: 'Management profiles will be added soon.',
-  },
-  {
-    key: 'advisors',
-    eyebrow: 'Advisors',
-    heading: 'Experience around the table.',
-    description: 'Experienced practitioners and scholars who strengthen our perspective and judgement.',
-    people: advisors,
-    emptyText: 'Advisor profiles will be added soon.',
-  },
+const categories = [
+  { title: "Management", data: management },
+  { title: "Researchers", data: researchers },
+  { title: "Advisors", data: advisors }
 ];
 ---
-
-<Layout title="People" description="Meet the researchers, management team and advisors at Sakshyam Research Institute.">
-  <section class="wrap pt-14 pb-16 md:pt-20 md:pb-20">
-    <p class="eyebrow mb-5">People</p>
-    <h1 class="h1 mb-6 max-w-3xl">The people behind the work.</h1>
-    <p class="lede max-w-2xl">
-      A multidisciplinary team of researchers, managers and advisors bringing different perspectives to complex
-      questions.
-    </p>
-  </section>
-
-  {
-    groups.map((group, i) => (
-      <section class={`py-16 md:py-20 ${i % 2 === 1 ? 'section-soft' : ''}`} id={group.key}>
-        <div class="wrap">
-          <div class="max-w-2xl mb-12">
-            <p class="eyebrow mb-4">{group.eyebrow}</p>
-            <h2 class="h2 mb-4">{group.heading}</h2>
-            <p class="lede">{group.description}</p>
+<Layout title="Our People - Sakshyam Research Institute">
+  <div class="max-w-7xl mx-auto py-16 px-4">
+    <h1 class="text-4xl font-heading text-slate-900 mb-12 text-center">Our People</h1>
+    {categories.map(category => (
+      category.data.length > 0 && (
+        <section class="mb-16">
+          <h2 class="text-2xl font-bold text-teal-600 mb-8 border-b border-teal-300 pb-2">{category.title}</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {category.data.map(person => (
+              <a href={`/people/${person.slug}`} class="block group">
+                <div class="bg-white shadow-md rounded-lg p-6 flex flex-col items-center text-center h-full transition-transform transform hover:-translate-y-1 hover:shadow-lg border-t-4 border-transparent group-hover:border-teal-600">
+                  <div class="w-32 h-32 mb-4 rounded-full bg-gray-100 overflow-hidden border-4 border-background group-hover:border-teal-100 transition-colors shadow-sm">
+                      {person.data.photo ? (
+                          <img src={person.data.photo} alt={person.data.name} class="w-full h-full object-cover" />
+                      ) : (
+                          <span class="text-4xl text-gray-400 mt-8 block">👤</span>
+                      )}
+                  </div>
+                  <h3 class="text-xl font-bold text-slate-900 group-hover:text-teal-600 transition-colors">{person.data.name}</h3>
+                  
+                  <!-- Truncated excerpt of their bio -->
+                  <div class="mt-4 text-sm text-left text-gray-600 line-clamp-3">
+                    {person.body.substring(0, 120)}...
+                  </div>
+                  
+                  <div class="mt-auto pt-6">
+                    <span class="text-teal-600 text-sm font-bold group-hover:underline">View Profile &rarr;</span>
+                  </div>
+                </div>
+              </a>
+            ))}
           </div>
-          {group.people.length > 0 ? (
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
-              {group.people.map((person) => <PersonCard person={person} />)}
-            </div>
-          ) : (
-            <p class="prose-body">{group.emptyText}</p>
-          )}
-        </div>
-      </section>
-    ))
-  }
+        </section>
+      )
+    ))}
+  </div>
 </Layout>
