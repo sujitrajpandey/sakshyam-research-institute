@@ -11,19 +11,14 @@ const home = homeEntry!.data;
 /*
  * HERO TEXT PANEL
  *
- * Controls the opacity of the white background behind
- * the hero text.
- *
  * 0    = completely transparent
  * 0.10 = very subtle
  * 0.20 = light
  * 0.30 = moderate
  * 0.40 = strong
  * 0.50 = very strong
- *
- * Recommended starting point: 0.35
  */
-const heroOverlayOpacity = 0.50;
+const heroOverlayOpacity = 0.35;
 
 const allEvents = await getCollection('events');
 
@@ -73,7 +68,7 @@ const allInsights = (await getCollection('insights'))
         class="relative z-10 wrap min-h-[620px] md:min-h-[700px] lg:min-h-[760px] flex items-center"
       >
 
-        <!-- Reduced vertical padding to decrease whitespace -->
+        <!-- Reduced vertical padding -->
         <div class="max-w-3xl py-15 md:py-21 lg:py-24">
 
           <!-- White overlay ONLY behind hero text -->
@@ -100,8 +95,16 @@ const allInsights = (await getCollection('insights'))
               )
             }
 
-            <!-- Main heading -->
+            <!--
+              HERO HEADING
+
+              The text comes directly from PagesCMS.
+
+              The JavaScript below progressively reveals the
+              existing heading character by character.
+            -->
             <h1
+              id="hero-heading"
               class="h1 mb-7 max-w-3xl"
               style="color: var(--color-ink);"
             >
@@ -418,5 +421,119 @@ const allInsights = (await getCollection('insights'))
     </div>
 
   </section>
+
+
+  <!-- ========================================================= -->
+  <!-- TYPEWRITER ANIMATION -->
+  <!-- ========================================================= -->
+
+  <script>
+    const heroHeading = document.getElementById('hero-heading');
+
+    if (heroHeading) {
+      const originalText = heroHeading.textContent?.trim() || '';
+
+      /*
+       * Keep the original heading available to screen readers
+       * and progressively reveal it visually.
+       */
+      heroHeading.setAttribute('aria-label', originalText);
+
+      heroHeading.textContent = '';
+
+      const cursor = document.createElement('span');
+
+      cursor.setAttribute('aria-hidden', 'true');
+      cursor.className = 'typing-cursor';
+
+      let index = 0;
+
+      const typingSpeed = 45;
+
+      function typeNextCharacter() {
+        if (index < originalText.length) {
+
+          heroHeading.insertBefore(
+            document.createTextNode(originalText.charAt(index)),
+            cursor
+          );
+
+          index++;
+
+          window.setTimeout(
+            typeNextCharacter,
+            typingSpeed
+          );
+
+        } else {
+
+          /*
+           * Keep the cursor visible for a short time after
+           * typing has finished, then remove it.
+           */
+          window.setTimeout(() => {
+            cursor.classList.add('typing-cursor-fade');
+
+            window.setTimeout(() => {
+              cursor.remove();
+            }, 600);
+
+          }, 1200);
+        }
+      }
+
+      heroHeading.appendChild(cursor);
+
+      /*
+       * Small delay before typing begins so the hero image
+       * and page have time to appear first.
+       */
+      window.setTimeout(typeNextCharacter, 350);
+    }
+  </script>
+
+
+  <!-- ========================================================= -->
+  <!-- TYPEWRITER CURSOR STYLES -->
+  <!-- ========================================================= -->
+
+  <style>
+    .typing-cursor {
+      display: inline-block;
+      width: 3px;
+      height: 0.9em;
+      margin-left: 5px;
+      vertical-align: -0.05em;
+      background-color: var(--color-teal);
+      animation: typing-blink 0.8s steps(1) infinite;
+    }
+
+    .typing-cursor-fade {
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      animation: none;
+    }
+
+    @keyframes typing-blink {
+      0%,
+      45% {
+        opacity: 1;
+      }
+
+      46%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    /*
+     * Respect users who prefer reduced motion.
+     */
+    @media (prefers-reduced-motion: reduce) {
+      .typing-cursor {
+        display: none;
+      }
+    }
+  </style>
 
 </Layout>
