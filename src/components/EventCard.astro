@@ -1,0 +1,38 @@
+---
+export interface Props {
+  event: any;
+}
+const { event } = Astro.props;
+const isUpcoming = event.type === 'upcoming';
+---
+
+<article class="card overflow-hidden flex flex-col h-full">
+  <div class="relative h-44 flex items-center justify-center section-soft overflow-hidden">
+    {
+      event.image && (
+        <img src={event.image} alt={event.title} class="h-16 w-auto object-contain opacity-90" />
+      )
+    }
+    <span
+      class="absolute top-4 left-4 tag"
+      style={isUpcoming ? '' : 'background-color: var(--color-line); color: var(--color-ink-soft);'}
+    >
+      {isUpcoming ? 'Upcoming' : 'Past'}
+    </span>
+  </div>
+  <div class="p-6 flex flex-col flex-1">
+    <h3 class="h4 mb-2">{event.title}</h3>
+    <p class="text-sm font-medium mb-3" style="color: var(--color-teal-deep);">
+      {event.date} · {event.location}
+    </p>
+    <p class="prose-body text-[0.95rem] flex-1">{event.description}</p>
+    {
+      isUpcoming && event.rsvp_url && (
+        <a href={event.rsvp_url} class="mt-5 inline-flex items-center gap-1.5 font-semibold text-sm" style="color: var(--color-teal-deep);">
+          {event.rsvp_label || 'RSVP'}
+          <span aria-hidden="true">→</span>
+        </a>
+      )
+    }
+  </div>
+</article>

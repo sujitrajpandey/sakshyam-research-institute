@@ -1,0 +1,30 @@
+site_title: "Sakshyam Research Institute"
+tagline: "Evidence grounded in context."
+logo: "/images/logo-full.png"
+logo_mark: "/images/logo-mark.png"
+favicon: "/favicon.png"
+email: "info@sakshyamresearch.org.np"
+linkedin_url: "https://www.linkedin.com/company/sakshyam-research-institute/"
+location_text: "Nepal"
+copyright_text: "© 2026 Sakshyam Research Institute"
+footer_blurb: "An independent research institute connecting rigorous evidence with implementation and inclusive impact."
+work_with_us_label: "Work with us"
+work_with_us_url: "/about#contact"
+
+colors:
+  ink: "#36454F"
+  ink_soft: "#5B6B73"
+  teal_deep: "#2C6E77"
+  teal: "#4297A0"
+  teal_mid: "#77BFC7"
+  teal_light: "#9AD0D6"
+  bg: "#FFFFFF"
+  bg_soft: "#F3F8F9"
+  line: "#E1E9EA"
+
+typography:
+  heading_font: "Fraunces"
+  body_font: "Inter"
+  base_font_size: 17
+  heading_scale: 1
+  body_line_height: 1.65

@@ -1,0 +1,87 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import InsightCard from '../../components/InsightCard.astro';
+
+const insights = (await getCollection('insights')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const categories = ['All', ...Array.from(new Set(insights.map((i) => i.data.category)))];
+---
+
+<Layout title="Insights" description="Research notes, policy briefs, articles and reports from Sakshyam Research Institute.">
+  <section class="wrap pt-14 pb-10 md:pt-20 md:pb-12">
+    <p class="eyebrow mb-5">Insights</p>
+    <h1 class="h1 mb-6 max-w-3xl">Research, explained.</h1>
+    <p class="lede max-w-2xl">
+      Research notes, policy briefs, articles and other knowledge products from the Sakshyam team.
+    </p>
+  </section>
+
+  <section class="wrap pb-10">
+    <div class="flex flex-wrap gap-2" id="filters">
+      {
+        categories.map((cat, i) => (
+          <button
+            data-filter={cat}
+            class:list={[
+              'filter-btn px-4 py-2 rounded-full text-sm font-semibold border transition-colors',
+              i === 0 ? 'is-active' : '',
+            ]}
+          >
+            {cat}
+          </button>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="pb-24">
+    <div class="wrap">
+      {
+        insights.length > 0 ? (
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6" id="insights-grid">
+            {insights.map((insight) => (
+              <div data-category={insight.data.category}>
+                <InsightCard insight={insight} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p class="prose-body">Insights will be added soon.</p>
+        )
+      }
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .filter-btn {
+    border-color: var(--color-line);
+    color: var(--color-ink-soft);
+    background-color: transparent;
+  }
+  .filter-btn.is-active {
+    background-color: var(--color-ink);
+    color: white;
+    border-color: var(--color-ink);
+  }
+</style>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const items = document.querySelectorAll<HTMLElement>('#insights-grid > div');
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      buttons.forEach((b) => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      const filter = btn.dataset.filter;
+      items.forEach((item) => {
+        const show = filter === 'All' || item.dataset.category === filter;
+        item.style.display = show ? '' : 'none';
+      });
+    });
+  });
+</script>
