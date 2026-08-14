@@ -1,5 +1,5 @@
 ---
-name: Vivek Pant
+name: Dr. Vivek Pant
 role: Senior Researcher
 category: researcher
 photo: /images/people/Vivek.jpg
