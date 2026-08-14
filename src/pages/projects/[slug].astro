@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.data.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { data } = project;
+---
+
+<Layout title={data.title} description={data.summary}>
+  <section class="wrap pt-14 pb-16 md:pt-20 md:pb-20">
+    <a href="/projects" class="text-sm font-semibold mb-8 inline-flex items-center gap-1.5" style="color: var(--color-teal-deep);">
+      ← Back to Projects
+    </a>
+    <span class="tag mb-6 w-fit" style={data.status === 'ongoing' ? '' : 'background-color: var(--color-line); color: var(--color-ink-soft);'}>
+      {data.status === 'ongoing' ? 'Ongoing' : 'Completed'} · {data.year}
+    </span>
+    <h1 class="h1 mb-6 max-w-3xl">{data.title}</h1>
+    <p class="lede max-w-2xl">{data.summary}</p>
+  </section>
+
+  {data.image && (
+    <section class="wrap pb-16">
+      <img src={data.image} alt={data.title} class="w-full rounded-2xl" />
+    </section>
+  )}
+
+  <section class="pb-24">
+    <div class="wrap grid md:grid-cols-[1fr_280px] gap-12">
+      <div class="prose-body max-w-2xl">
+        <p>{data.body}</p>
+      </div>
+      {data.geographic_focus && (
+        <div>
+          <h3 class="h4 mb-3">Geographic focus</h3>
+          <p class="prose-body">{data.geographic_focus}</p>
+        </div>
+      )}
+    </div>
+  </section>
+</Layout>

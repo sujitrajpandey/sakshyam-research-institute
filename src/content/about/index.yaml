@@ -1,0 +1,20 @@
+hero:
+  eyebrow: "About Sakshyam"
+  heading: "Research that connects evidence with action."
+  subheading: "We are an independent research institute working at the intersection of evidence, implementation and inclusion."
+
+purpose:
+  eyebrow: "Our purpose"
+  heading: "Ask better questions."
+  body: "Good research begins with a useful question. We work across research, evaluation, policy and organizational strategy to produce knowledge that is rigorous enough to trust and practical enough to use."
+
+how_we_work:
+  eyebrow: "How we work"
+  heading: "From evidence to impact."
+  body: "We believe research creates value when it improves decisions, strengthens implementation and makes participation and outcomes more inclusive."
+
+contact:
+  eyebrow: "Contact"
+  heading: "Let's work on a meaningful question."
+  body: "For research, evaluation, policy work or strategic assignments, contact the Sakshyam team."
+  email: "info@sakshyamresearch.org.np"
