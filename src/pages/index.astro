@@ -8,6 +8,20 @@ import InsightCard from '../components/InsightCard.astro';
 const homeEntry = await getEntry('home', 'index');
 const home = homeEntry!.data;
 
+/*
+ * HERO IMAGE OVERLAY
+ *
+ * 0    = completely transparent
+ * 0.05 = 5% black
+ * 0.10 = 10% black
+ * 0.20 = 20% black
+ * 0.30 = 30% black
+ * 0.50 = 50% black
+ *
+ * Your current image is already dark, so 0 is recommended.
+ */
+const heroOverlayOpacity = 0;
+
 const allEvents = await getCollection('events');
 
 const upcomingEvents = allEvents
@@ -32,102 +46,61 @@ const allInsights = (await getCollection('insights'))
 <Layout title="Home">
 
   <!-- ========================================================= -->
-  <!-- HERO                                                      -->
+  <!-- HERO -->
   <!-- ========================================================= -->
 
-  <section class="relative isolate min-h-[580px] md:min-h-[650px] lg:min-h-[700px] overflow-hidden">
+  <section class="relative overflow-hidden border-b border-line/70">
 
-    <!-- Full-width hero image -->
-    {
-      home.hero.image && (
+    <div class="relative min-h-[620px] md:min-h-[700px] lg:min-h-[760px]">
+
+      <!-- Full-width hero image -->
+      {home.hero.image && (
         <img
           src={home.hero.image}
           alt=""
-          class="absolute inset-0 w-full h-full object-cover object-right"
+          class="absolute inset-0 w-full h-full object-cover object-center"
           aria-hidden="true"
         />
-      )
-    }
+      )}
 
-    <!-- Main overlay for text readability -->
-    <div
-      class="absolute inset-0 z-0"
-      style="
-        background:
-          linear-gradient(
-            90deg,
-            rgba(10, 35, 42, 0.86) 0%,
-            rgba(10, 35, 42, 0.72) 28%,
-            rgba(10, 35, 42, 0.40) 52%,
-            rgba(10, 35, 42, 0.12) 76%,
-            rgba(10, 35, 42, 0.04) 100%
-          );
-      "
-    ></div>
+      <!-- Adjustable image overlay -->
+      <div
+        class="absolute inset-0 bg-black pointer-events-none"
+        style={`opacity: ${heroOverlayOpacity};`}
+        aria-hidden="true"
+      ></div>
 
-    <!-- Subtle bottom gradient -->
-    <div
-      class="absolute inset-0 z-0"
-      style="
-        background:
-          linear-gradient(
-            180deg,
-            rgba(0,0,0,0.04) 0%,
-            rgba(0,0,0,0.08) 55%,
-            rgba(0,0,0,0.22) 100%
-          );
-      "
-    ></div>
+      <!-- Hero content -->
+      <div class="relative z-10 wrap min-h-[620px] md:min-h-[700px] lg:min-h-[760px] flex items-center">
 
-    <!-- Hero content -->
-    <div
-      class="wrap relative z-10 min-h-[580px] md:min-h-[650px] lg:min-h-[700px] flex items-center"
-    >
-      <div class="max-w-3xl py-20 md:py-24 lg:py-28">
+        <div class="max-w-3xl py-20 md:py-28 lg:py-32">
 
-        <!-- Eyebrow -->
-        {
-          home.hero.eyebrow && (
+          {home.hero.eyebrow && (
             <p
               class="eyebrow mb-6"
-              style="color: var(--color-teal-light);"
+              style="color: white;"
             >
               {home.hero.eyebrow}
             </p>
-          )
-        }
+          )}
 
-        <!-- Heading -->
-        <h1
-          class="mb-7 max-w-3xl text-white"
-          style="
-            font-family: var(--font-heading);
-            font-size: clamp(2.7rem, 5vw, 5rem);
-            line-height: 1.02;
-            letter-spacing: -0.035em;
-            font-weight: 700;
-          "
-        >
-          {home.hero.heading}
-        </h1>
+          <h1
+            class="h1 mb-7 max-w-3xl"
+            style="color: white;"
+          >
+            {home.hero.heading}
+          </h1>
 
-        <!-- Subheading -->
-        <p
-          class="mb-9 max-w-2xl"
-          style="
-            color: rgba(255,255,255,0.90);
-            font-size: clamp(1.05rem, 1.5vw, 1.3rem);
-            line-height: 1.65;
-          "
-        >
-          {home.hero.subheading}
-        </p>
+          <p
+            class="lede mb-9 max-w-2xl"
+            style="color: rgba(255,255,255,0.92);"
+          >
+            {home.hero.subheading}
+          </p>
 
-        <!-- Buttons -->
-        <div class="flex flex-wrap gap-4">
+          <div class="flex flex-wrap gap-4">
 
-          {
-            home.hero.primary_button_label && (
+            {home.hero.primary_button_label && (
               <a
                 href={home.hero.primary_button_url}
                 class="btn btn-primary"
@@ -135,40 +108,39 @@ const allInsights = (await getCollection('insights'))
                 {home.hero.primary_button_label}
                 <span aria-hidden="true">→</span>
               </a>
-            )
-          }
+            )}
 
-          {
-            home.hero.secondary_button_label && (
+            {home.hero.secondary_button_label && (
               <a
                 href={home.hero.secondary_button_url}
-                class="btn"
-                style="
-                  background: rgba(255,255,255,0.12);
-                  color: white;
-                  border: 1px solid rgba(255,255,255,0.55);
-                  backdrop-filter: blur(6px);
-                "
+                class="btn btn-outline"
+                style="border-color: white; color: white;"
               >
                 {home.hero.secondary_button_label}
               </a>
-            )
-          }
+            )}
+
+          </div>
 
         </div>
+
       </div>
+
     </div>
+
   </section>
 
 
   <!-- ========================================================= -->
-  <!-- WHAT WE DO                                                -->
+  <!-- WHAT WE DO -->
   <!-- ========================================================= -->
 
   <section class="section-soft py-20 md:py-28">
+
     <div class="wrap">
 
       <div class="max-w-2xl mb-14">
+
         <p class="eyebrow mb-4">
           {home.what_we_do.eyebrow}
         </p>
@@ -180,9 +152,12 @@ const allInsights = (await getCollection('insights'))
         <p class="lede">
           {home.what_we_do.description}
         </p>
+
       </div>
 
+
       <div class="grid sm:grid-cols-3 gap-8">
+
         {
           home.what_we_do.pillars.map((pillar) => (
             <div class="card p-7 bg-white">
@@ -205,20 +180,24 @@ const allInsights = (await getCollection('insights'))
             </div>
           ))
         }
+
       </div>
 
     </div>
+
   </section>
 
 
   <!-- ========================================================= -->
-  <!-- EVENTS                                                     -->
+  <!-- EVENTS -->
   <!-- ========================================================= -->
 
   <section class="py-20 md:py-28">
+
     <div class="wrap">
 
       <div class="max-w-2xl mb-14">
+
         <p class="eyebrow mb-4">
           {home.events_section.eyebrow}
         </p>
@@ -230,36 +209,46 @@ const allInsights = (await getCollection('insights'))
         <p class="lede">
           {home.events_section.description}
         </p>
+
       </div>
+
 
       {
         orderedEvents.length > 0 ? (
+
           <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {orderedEvents.map((event) => (
-              <EventCard event={event.data} />
-            ))}
+
+            {
+              orderedEvents.map((event) => (
+                <EventCard event={event.data} />
+              ))
+            }
+
           </div>
+
         ) : (
+
           <p class="prose-body">
             More events will be announced soon.
           </p>
+
         )
       }
 
     </div>
+
   </section>
 
 
   <!-- ========================================================= -->
-  <!-- SELECTED PROJECTS                                         -->
+  <!-- SELECTED PROJECTS -->
   <!-- ========================================================= -->
 
   <section class="section-soft py-20 md:py-28">
+
     <div class="wrap">
 
-      <div
-        class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14"
-      >
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
 
         <div class="max-w-2xl">
 
@@ -277,15 +266,16 @@ const allInsights = (await getCollection('insights'))
 
         </div>
 
+
         <a
           href="/projects"
           class="btn btn-outline bg-white shrink-0 w-fit"
         >
-          {home.projects_section.button_label}
-          →
+          {home.projects_section.button_label} →
         </a>
 
       </div>
+
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
@@ -298,19 +288,19 @@ const allInsights = (await getCollection('insights'))
       </div>
 
     </div>
+
   </section>
 
 
   <!-- ========================================================= -->
-  <!-- LATEST INSIGHTS                                           -->
+  <!-- LATEST INSIGHTS -->
   <!-- ========================================================= -->
 
   <section class="py-20 md:py-28">
+
     <div class="wrap">
 
-      <div
-        class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14"
-      >
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
 
         <div class="max-w-2xl">
 
@@ -328,15 +318,16 @@ const allInsights = (await getCollection('insights'))
 
         </div>
 
+
         <a
           href="/insights"
           class="btn btn-outline shrink-0 w-fit"
         >
-          {home.insights_section.button_label}
-          →
+          {home.insights_section.button_label} →
         </a>
 
       </div>
+
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
@@ -349,14 +340,16 @@ const allInsights = (await getCollection('insights'))
       </div>
 
     </div>
+
   </section>
 
 
   <!-- ========================================================= -->
-  <!-- CTA                                                        -->
+  <!-- CTA -->
   <!-- ========================================================= -->
 
   <section class="py-20 md:py-24">
+
     <div class="wrap">
 
       <div
@@ -375,27 +368,22 @@ const allInsights = (await getCollection('insights'))
           {home.cta.heading}
         </h2>
 
-        <p
-          class="lede mb-9 max-w-xl mx-auto text-white/70"
-        >
+        <p class="lede mb-9 max-w-xl mx-auto text-white/70">
           {home.cta.description}
         </p>
 
         <a
           href={home.cta.button_url}
           class="btn"
-          style="
-            background-color: var(--color-teal);
-            color: white;
-          "
+          style="background-color: var(--color-teal); color: white;"
         >
-          {home.cta.button_label}
-          →
+          {home.cta.button_label} →
         </a>
 
       </div>
 
     </div>
+
   </section>
 
 </Layout>
