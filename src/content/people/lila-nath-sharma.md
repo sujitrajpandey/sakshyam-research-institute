@@ -1,13 +1,12 @@
 ---
-name: "Lila Nath Sharma"
-role: "Senior Researcher"
-category: "researcher"
-photo: "/images/people/lila-nath-sharma.svg"
-short_bio: "Researcher working on applied economic and development questions."
+name: Lila Nath Sharma
+role: Senior Researcher
+category: researcher
+photo: /images/people/Dr.Lilanath_Sharma.jpg
+short_bio: Rooting for Nepal’s forests - literally and academically.
 expertise:
-  - "Applied economics"
-  - "Development research"
-linkedin_url: ""
-order: 1
+  - Biodiversity
+  - Forest ecology
+order: 2
 ---
-Lila Nath Sharma is a Senior Researcher at Sakshyam Research Institute, working on applied economic and development questions. This profile is starter content migrated from the preliminary site — replace it with the approved biography from Pages CMS.
+Lila Nath Sharma is a Nepali biodiversity and forest-ecology researcher specializing in vegetation ecology, ecosystem restoration and community-based conservation. With a PhD in vegetation ecology from the University of Bergen, he combines scientific research with field-based conservation and policy engagement. His work focuses on understanding ecosystems and translating ecological knowledge into practical approaches for sustainable forest and biodiversity management in Nepal.
